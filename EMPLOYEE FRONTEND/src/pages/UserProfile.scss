@@ -1,0 +1,185 @@
+.profile-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+
+  .left-container {
+    width: 40%;
+    height: 70%;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+
+    .left-prof-cont {
+      width: 90%;
+      height: 90%;
+      margin: auto;
+      margin-top: 1rem;
+
+      .left-profile {
+        width: 100%;
+        background-color: #210440;
+        margin-top: 1rem;
+        border-radius: 5px;
+        height: 60%;
+
+        .user-details-cont {
+          display: flex;
+          align-items: center;
+          height: 100%;
+          justify-content: space-evenly;
+        }
+
+        .user-identity {
+          height: 70%;
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+
+          p {
+            color: white;
+            font-weight: 700;
+            font-size: 12px;
+          }
+
+          button {
+            width: 30%;
+            height: 2rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #ffba00;
+          }
+        }
+      }
+    }
+  }
+
+  .right-profile {
+    width: 40%;
+    height: 90%;
+    margin-top: 0.5rem;
+
+    button {
+      width: 30%;
+      height: 2rem;
+      border-radius: 5px;
+      border: none;
+      background-color: #E5958E;
+      margin-bottom: .3rem;
+    }
+
+    h2 {
+      color: black;
+      font-weight: 800;
+      background-color: aliceblue;
+      border-radius: 5px;
+      padding-left: 2px;
+      margin-bottom: .3rem;
+    }
+
+    p {
+      color: black;
+      font-weight: 500;
+    }
+
+    .productivity-cont {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: 7.5rem;
+
+      .yesterday {
+        display: flex;
+        justify-content: space-between;
+        height: 3rem;
+        background-color: #210440;
+        align-items: center;
+        border-radius: 5px;
+        p {
+          width: 30%;
+          background-color: #E5958E;
+          height: 80%;
+          color: white;
+          display: flex;
+          align-items: center;
+          padding-left: 1rem;
+          border-radius: 5px;
+          margin-left: 0.3rem;
+        }
+
+        .percent {
+          width: 70%;
+          display: flex;
+          justify-content: space-evenly;
+          color: white;
+        }
+      }
+    }
+
+    .monthly-statistics {
+      display: flex;
+      flex-direction: column;
+      background-color: #210440b3;
+      margin-bottom: .3rem;
+      border-radius: 5px;
+
+      h2{
+        margin-top: .2rem;
+        margin-right: .2rem;
+        margin-left: .2rem;
+      }
+      .chart-content {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+
+        .tasks-hours-container {
+          width: 50%;
+          display: grid;
+          place-items: center;
+        }
+      }
+    }
+    .upcoming-schedules {
+      border-radius: 5px;
+
+      h3 {
+        color: black;
+        font-weight: 600;
+      }
+
+      .task {
+        background-color: #2104408e;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 3.5rem;
+        align-items: center;
+        padding-right: 1rem;
+        padding-left: 1rem;
+
+        .day {
+          background-color: #E5958E;
+          height: 80%;
+          width: 20%;
+          display: grid;
+          place-items: center;
+          border-radius: 5px;
+        }
+
+        p{
+          color: black;
+          font-weight: 600;
+        }
+
+        .task-title {
+          p{
+            color: black;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
+}

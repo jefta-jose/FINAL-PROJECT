@@ -1,0 +1,142 @@
+.welcome-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.112);
+  position: relative;
+
+  
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Adjust the z-index as needed */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  width: 100%;
+  height: 100%;
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.labels {
+  margin-bottom: 10px;
+}
+
+.labels label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+  .left-welcome {
+    flex: 5;
+    margin-left: 5rem;
+    height: 80%;
+    margin: auto;
+    margin-left: 3rem;
+
+    h1 {
+      font-weight: 900;
+      color: #black;
+    }
+    p {
+      color: black;
+      font-size: 1rem;
+    }
+
+    .goals {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+
+      .one {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+
+        button {
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          border: none;
+          background-color: #ffba00;
+        }
+
+        p{
+            color: black;
+        }
+      }
+    }
+
+    button{
+        width: 15rem;
+        height: 2.5rem;
+        border-radius: 1rem;
+        border: none;
+        background-color: #E5958E;
+        color: white;
+        font-weight: 900;
+        cursor: pointer;
+
+        a{
+            color: white;
+            text-decoration: none;
+        }
+    }
+  }
+
+  .right-welcome {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    margin-right: 5rem;
+
+    img {
+      margin: auto;
+      width: 13rem;
+      height: 14rem;
+      border-radius: 5px;
+    }
+  }
+}

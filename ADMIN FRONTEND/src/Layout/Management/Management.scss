@@ -1,0 +1,351 @@
+.management-table {
+  margin-top: 20px;
+  height: 65vh;
+  overflow-x: hidden;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: none;
+      color: white;
+    }
+
+    td {
+      background-color: #e5958e;
+      font-weight: 700;
+
+      .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+
+        button {
+          background-color: #ffba00;
+          font-weight: 700;
+          cursor: pointer;
+          border: none;
+          height: 1.5rem;
+          border-radius: 3px;
+          padding: 2px;
+          width: 7rem;
+        }
+      }
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  }
+}
+
+.add-employee-section {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    background-color: #ffba00;
+    height: 2rem;
+    width: 10rem;
+    cursor: pointer;
+    border: none;
+    margin-right: 5rem;
+  }
+
+  input {
+    background-color: #ffba00;
+    height: 2rem;
+    width: 10rem;
+    cursor: pointer;
+    border: none;
+    width: 30rem;
+    border: none;
+    padding: 2px;
+  }
+}
+
+.modalT {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 3; /* Higher z-index than the left and right divs */
+}
+
+.modal-contentT {
+  background-color: #fff; /* Adjust the background color as needed */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  height: 70%;
+  text-align: center;
+  width: 52%;
+
+  form {
+    display: flex;
+    flex-direction: row;
+    height: 90%;
+    gap: 1rem;
+
+    .left-labels {
+      display: flex;
+      flex-direction: column;
+      background-color: #210440;
+      height: 100%;
+      justify-content: space-evenly;
+      border-radius: 5px;
+      flex: 1;
+
+      label {
+        color: white;
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 5px 0 5px;
+
+        input {
+          background-color: #ffba00;
+          height: 1.5rem;
+          border: none;
+          border-radius: 2px;
+          width: 70%;
+        }
+      }
+    }
+
+    .right-labels {
+      display: flex;
+      flex-direction: column;
+      background-color: #210440;
+      height: 100%;
+      justify-content: space-evenly;
+      border-radius: 5px;
+      flex: 1;
+
+      label {
+        color: white;
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 5px 0 5px;
+
+        input {
+          background-color: #ffba00;
+          height: 1.5rem;
+          border: none;
+          border-radius: 2px;
+          width: 70%;
+        }
+      }
+
+      .photo{
+        background-color: #ffba00;
+        height: 1.5rem;
+        width: 90%;
+        align-self: center;
+        padding-left: 1rem;
+      }
+      button {
+        background-color: green;
+        height: 2rem;
+        cursor: pointer;
+        width: 75%;
+        align-self: center;
+        border: none;
+        color: white;
+        transition: 1s;
+        border-radius: 5px;
+        font-weight: 800;
+
+        &:hover {
+          background-color: #ffba00;
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  border: 2px solid red;
+  height: 3rem;
+  width: 3rem;
+  display: grid;
+  place-items: center;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  font-weight: 800;
+  transition: 0.5s;
+
+  &:hover {
+    background-color: rgb(141, 2, 2);
+  }
+}
+
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+
+  .img-md{
+    img{
+      border-radius: 5px;
+    }
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 70px;
+  right: 250px;
+  cursor: pointer;
+  border: 2PX solid red;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-form label {
+  margin-bottom: 10px;
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-submit {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.modal-submit:hover {
+  background-color: #0056b3;
+}
+/////////////////////////////////////////////////
+.modal-containerE {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-contentE {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  padding-right: 2.3rem;
+}
+
+.modal-closeE {
+  position: absolute;
+  top: 190px;
+  right: 300px;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  background-color: red;
+  border-radius: 50%;
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-form label {
+  margin-bottom: 10px;
+}
+
+.modal-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-submit {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-submit:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,30 @@
+.navbar-cont{
+    display: flex;
+    height: 5rem;
+    gap: 10rem;
+    .overview{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+
+        color: white;
+    }
+
+    .bulb-mails{
+        width: 15rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+
+        img{
+            width: 2rem;
+            height: 2rem;
+            cursor: pointer;
+        }
+
+        .mails{
+            width: 3rem;
+        }
+    }
+}

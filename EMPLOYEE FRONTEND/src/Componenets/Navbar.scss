@@ -1,0 +1,52 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    height: 10%;
+    border-bottom: 2px solid black;
+    background-color: aliceblue;
+    justify-content: space-evenly;
+
+    &.dark-mode {
+        background-color: #333; // Change this to your desired dark background color
+        color: #fff; // Change this to your desired dark text color
+        // Add more styles for dark mode as needed
+      }
+
+    .top-nav{
+        width: 60%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button{
+            width: 30%;
+            height: 2rem;
+            border-radius: 5px;
+            background-color: #FFBA00;
+            color: white;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+    .bulb{
+        display: grid;
+        place-items: center;
+        img{
+            width: 2rem;
+            cursor: pointer;
+        }        
+    }
+
+    .user{
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        .mails{
+            cursor: pointer;
+        }
+    }
+}

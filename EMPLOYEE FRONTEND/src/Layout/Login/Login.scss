@@ -1,0 +1,146 @@
+.login-container {
+  width: 100vw;
+  height: 100vh;
+
+  background-image: url(../../assets/pawel-czerwinski-dgJT71cXlC4-unsplash.jpg);
+  background-size: cover;
+  background-position: center;
+
+  .dimm {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.394);
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+    .left-login-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 80vh;
+      width: 40%;
+      background-color: #210440;
+      border-radius: 10px;
+      margin: auto;
+      padding-left: 2rem;
+
+      h1 {
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        color: white;
+        margin-bottom: 1rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        margin-top: 1rem;
+        gap: .5rem;
+
+        label {
+          color: white;
+          font-size: 1rem;
+        }
+
+        input {
+          background-color: #ffba00;
+          border: none;
+          height: 2rem;
+          border-radius: 5px;
+          padding-left: 1rem;
+        }
+
+        .rmber-frgt {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          .remember {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+
+          button{
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+          }
+        }
+
+        .btn{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            button{
+                width: 40%;
+                height: 2rem;
+                cursor: pointer;
+                border-radius: 5px;
+                border: none;
+                background-color: #FFBA00;
+                transition: 1s;
+
+                &:hover{
+                    background-color: #118d6a;
+                }
+            }
+        }
+      }
+    }
+
+    .right-login-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 80vh;
+      width: 30%;
+      margin: auto;
+      background-color: white;
+      border-radius: 10px;
+
+      h1{
+        color: #0c3b2e;
+        font-size: 1.4rem;
+        font-weight: 700;
+        padding-left: 1rem;
+      }
+      p{
+        color: #0c3b2e;
+        font-size: 1rem;
+        padding-left: 1rem;
+      }
+
+      .login-image{
+        height: 75%;
+        margin: auto;
+        align-items: center;
+
+        img{
+            height: 100%;
+            border-radius: 5px;
+            width: 23vw;
+        }
+      }
+    }
+  }
+}

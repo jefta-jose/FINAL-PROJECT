@@ -1,0 +1,60 @@
+.email-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  justify-content: space-evenly;
+
+  .display-inbox {
+    width: 30%;
+    background-color: #210440;
+    height: 80vh;
+    border-radius: 5px;
+    color: white;
+    padding: 0 5px 0 5px;
+
+    .msg-one {
+      border-bottom: 2px solid #ffba00;
+
+      .user-name {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+        border-bottom: 1px solid gainsboro;
+        border-radius: 5px;
+      }
+      p{
+        margin-bottom: .5rem;
+      }
+    }
+  }
+
+  .read-msgs {
+    width: 60%;
+    border: 2px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    height: 79.5vh;
+
+    .user-details{
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #0c3b2e;
+        margin-bottom: .5rem;
+        img{
+            margin-top: .2rem;
+            margin-left: 2rem;
+            margin-bottom: .2rem;
+        }
+        h2{
+            margin-left: 1rem;
+        }
+    }
+
+    .email-msg{
+        padding: 1rem;
+        color: black;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.dashboard-container{
+    display: flex;
+
+    .sidenav{
+        width: 8vw;
+    }
+    .routes-container{
+        width: 87vw;
+        height: 90vh;
+        margin: auto;
+        background-color: #210440;
+        border-radius: 10px;
+        padding: 1rem;
+    }
+}

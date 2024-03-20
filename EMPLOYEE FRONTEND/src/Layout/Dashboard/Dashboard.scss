@@ -1,0 +1,22 @@
+.dashboard{
+    display: flex;
+    flex-direction: row;
+    background-color: aliceblue;
+
+    &.dark-mode {
+        background-color: #333; // Change this to your desired dark background color
+        color: #fff; // Change this to your desired dark text color
+        // Add more styles for dark mode as needed
+      }
+
+    .Side-bar{
+        width: 10%;
+    }
+
+    .main-content{
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+    }
+}
