@@ -25,6 +25,16 @@ const UserProfile = () => {
   const [upload] = useUploadMutation();
   const [updateUser] = useUploadMutation();
 
+  const [imageData, setImageData] = useState(null);
+  const filename = localStorage.getItem("filename");
+  const { data } = useGetImageQuery(filename);
+
+  useEffect(() => {
+    if (data) {
+      setImageData(data);
+    }
+  }, [data]);
+
   const { register, handleSubmit } = useForm({
     defaultValues: {
       username: userDetails?.username || "",
@@ -33,57 +43,65 @@ const UserProfile = () => {
   });
   const validateImage = (file) => {
     if (file) {
+      console.log("File name:", file.name); // Log the file name here
+      localStorage.setItem("filename", file.name);
       const validTypes = ["image/jpeg", "image/jpg", "image/png"];
       if (validTypes.indexOf(file.type) === -1) {
         setFile(null);
-        ErrorToast("File format is incorrect use .jpeg, .pnp or .jpg");
+        ErrorToast("File format is incorrect. Please use .jpeg, .png, or .jpg");
       } else if (file.size > 1024 * 1024 * 5) {
         setFile(null);
-        ErrorToast("File size is too large");
+        ErrorToast("File size is too large (maximum 5 MB)");
       } else {
         return true;
       }
     }
   };
+
   useEffect(() => {
     validateImage(file);
   }, [file]);
+
   const uploadImage = async (employeeId) => {
+    console.log("Uploading image with employee ID:", employeeId);
     const formData = new FormData();
     formData.append("file", file);
     formData.append("EmployeeID", employeeId); // Append the employee ID to the form data
+    console.log("Form data:", formData);
 
-    return await upload(formData).unwrap();
+    const response = await upload(formData).unwrap();
+    console.log("Response from upload mutation:", response);
+    return response;
   };
 
-const onSubmitProfile = async (data) => {
+  const onSubmitProfile = async (data) => {
     LoadingToast(true);
     const { imageUrl } = await uploadImage(employeeId);
 
-    console.log('Image URL:', imageUrl); // Add this line to log the image URL
+    console.log("Image URL:", imageUrl); // Log the image URL here
 
     if (imageUrl) {
-        data.imageUrl = imageUrl;
-        const employeeId = localStorage.getItem("EmployeeID");
-        if (employeeId) {
-            data.id = employeeId;
-            const res = await updateUser(data).unwrap();
-            if (res.message) {
-                updateUserDetails(data);
-                LoadingToast(false);
-                SuccessToast(res.message);
-            }
-        } else {
-            LoadingToast(false);
-            ErrorToast("Employee ID not found in localStorage");
+      // Save the image URL to local storage
+      localStorage.setItem("ProfileImageUrl", imageUrl);
+      data.imageUrl = imageUrl;
+      const employeeId = localStorage.getItem("EmployeeID");
+      if (employeeId) {
+        data.id = employeeId;
+        const res = await updateUser(data).unwrap();
+        if (res.message) {
+          updateUserDetails(data);
+          LoadingToast(false);
+          SuccessToast(res.message);
         }
-    } else {
+      } else {
         LoadingToast(false);
-        ErrorToast("Image upload failed");
+        ErrorToast("Employee ID not found in localStorage");
+      }
+    } else {
+      LoadingToast(false);
+      ErrorToast("Image upload failed");
     }
-};
-
-
+  };
 
   const onSubmitAuth = async (e) => {
     e.preventDefault();
@@ -158,7 +176,11 @@ const onSubmitProfile = async (data) => {
             <h1>Employee Dashboard</h1>
             <div className="left-profile">
               <div className="user-details-cont">
-                <div className="user-image">{employee?.imageUrl}</div>
+                <div>
+                  {imageData && (
+                    <img src={imageData.imageUrl} alt="Employee Image" /> // Render the image if image data is available
+                  )}
+                </div>
                 <div className="user-identity">
                   <p>
                     Name: {employee?.FirstName || ""} {employee?.LastName || ""}

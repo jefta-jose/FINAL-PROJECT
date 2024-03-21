@@ -10,8 +10,8 @@ const storage = multer.diskStorage({
         cb(null, './src/photos/users'); // Specify the destination folder
     },
     filename: function (req, file, cb) {
-        const uniqueFileName = `${Date.now()}_${file.originalname}`; // Generate a unique filename
-        cb(null, uniqueFileName);
+        // Use the original filename without generating a unique one
+        cb(null, file.originalname);
     }
 });
 

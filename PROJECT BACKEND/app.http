@@ -129,7 +129,7 @@ Content-Type: application/json
 }
 
 ### upload image
-GET http://localhost:3000/api/get-picture/1711042420157_c01c8e75159a3d4a40cac96f6a20624a.jpg
+GET http://localhost:3000/api/get-picture/Untitled.jpg
 
 
 ### - get all employeese
