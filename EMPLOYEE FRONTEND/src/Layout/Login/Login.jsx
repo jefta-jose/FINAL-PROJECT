@@ -2,15 +2,24 @@ import React from "react";
 import loginImage from "../../assets/c11223798ad4596b8d0826e22a09dee6.jpg";
 import { useUserLoginValidator } from "./userValidator";
 import "./Login.scss";
-import { useLoginMutation, useGetAllEmployeesQuery } from "../../Features/employeeApi";
+import {
+  useLoginMutation,
+  useGetAllEmployeesQuery,
+} from "../../Features/employeeApi";
 import { useNavigate } from "react-router-dom";
 import { ErrorToast, SuccessToast, ToasterContainer } from "../../Toaster";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const Login = () => {
   const { register, handleSubmit, errors } = useUserLoginValidator();
   const [loginUser] = useLoginMutation();
-  const { data: allEmployeesData, isLoading, isError } = useGetAllEmployeesQuery();
+  const {
+    data: allEmployeesData,
+    isLoading,
+    isError,
+  } = useGetAllEmployeesQuery();
   const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useLocalStorage("user", null);
 
   const onSubmit = async (formData) => {
     try {
@@ -19,7 +28,9 @@ const Login = () => {
         return;
       }
 
-      const user = allEmployeesData.find(employee => employee.Email === formData.Email);
+      const user = allEmployeesData.find(
+        (employee) => employee.Email === formData.Email
+      );
 
       if (user && user.Role === "Employee") {
         const response = await loginUser(formData);
@@ -28,8 +39,10 @@ const Login = () => {
 
         // Store EmployeeID in local storage
         localStorage.setItem("EmployeeID", user.EmployeeID);
-
         navigate("/welcome");
+
+        setUserDetails(response.message.user);
+
       } else {
         console.log("Access denied. Only Employees can log in.");
         ErrorToast("Access denied. Only Employees can log in.");
@@ -41,7 +54,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <ToasterContainer/>
+      <ToasterContainer />
       <div className="dimm">
         <div className="left-login-container">
           <h1>Project X</h1>

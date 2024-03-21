@@ -25,11 +25,11 @@ Content-Type: application/json
 
 
 #### - UPDATE EMPLOYEE
-PUT http://localhost:3000/api/employee/9e3d21b5-7678-4628-aa29-f39c01614e1e
+PUT http://localhost:3000/api/employee/032932b5-661b-409d-87d6-77f1ecf24f27
 Content-Type: application/json
 
 {
-    "Role": "ADMIN"
+    "FirstName": "Lilly"
 }
 
 #### - login 
@@ -130,3 +130,6 @@ Content-Type: application/json
     "OnLeave": 1,
     "LeaveDays": 30
 }
+
+### upload image
+POST http://localhost:3000/api/upload-user-profile

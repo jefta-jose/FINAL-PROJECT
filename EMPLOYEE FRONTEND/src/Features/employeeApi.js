@@ -18,6 +18,14 @@ export const employeeApi = createApi({
             query: () => 'employee/', // Adjusted URL
             providesTags: ['employee'],
         }),
+        updateEmployee: builder.mutation({
+            query: ({ id, employeeData }) => ({
+                url: `employee/${id}`, // Adjusted URL
+                method: 'PUT',
+                body: employeeData,
+                invalidateTags: ['employee'],
+            }),
+        }),
         updateTime: builder.mutation({
             query: ({ EmployeeID, ClockInTime, ClockOutTime }) => ({
                 url: 'updateTime', // Adjusted URL
@@ -48,4 +56,4 @@ export const employeeApi = createApi({
     }),
 });
 
-export const { useUploadMutation ,useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;
+export const { useUpdateEmployeeMutation ,useUploadMutation ,useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;
