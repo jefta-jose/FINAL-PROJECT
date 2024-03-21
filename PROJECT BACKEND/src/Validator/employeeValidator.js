@@ -11,7 +11,7 @@ export const employeeValidator = (employee) => {
         ContactInfo: joi.string(),
         Gender: joi.string(),
         Position: joi.string(),
-        PhotoURL: joi.string(),
+        imageUrl: joi.string(),
         HourlyRate: joi.number().precision(2),
         GrossPay: joi.number().precision(2),
         NHIFDeduction: joi.number().precision(2),
@@ -19,10 +19,6 @@ export const employeeValidator = (employee) => {
         HELBDeduction: joi.number().precision(2),
         NetPay: joi.number().precision(2),
         Role: joi.string(),
-        ClockInTime: joi.string(),
-        ClockOutTime: joi.string(),
-        HoursWorked: joi.number().precision(2),
-        Overtime: joi.number().precision(2)
     });
     return registerEmployeeSchema.validate(employee);
 };

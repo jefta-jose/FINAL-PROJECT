@@ -10,7 +10,7 @@ CREATE TABLE Employees(
     ContactInfo VARCHAR(20),
     Gender VARCHAR(10),
     Position VARCHAR(255),
-    PhotoURL VARCHAR(255),
+    imageUrl VARCHAR(255),
     Email VARCHAR(100) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
     HourlyRate DECIMAL(10,2),

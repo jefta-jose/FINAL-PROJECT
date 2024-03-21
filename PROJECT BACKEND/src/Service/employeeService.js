@@ -33,15 +33,13 @@ export const addEmployeeService = async (employee) => {
             ContactInfo,
             Gender,
             Position,
-            PhotoURL,
+            imageUrl,
             HourlyRate,
             GrossPay,
             NHIFDeduction,
             NSSFDeduction,
             HELBDeduction,
             Role,
-            ClockInTime,
-            ClockOutTime,
         } = employee;
 
         // Generate UUID for EmployeeID
@@ -61,18 +59,16 @@ export const addEmployeeService = async (employee) => {
             .input('ContactInfo', sql.VarChar, ContactInfo)
             .input('Gender', sql.VarChar, Gender)
             .input('Position', sql.VarChar, Position)
-            .input('PhotoURL', sql.VarChar, PhotoURL)
+            .input('imageUrl', sql.VarChar, imageUrl)
             .input('HourlyRate', sql.Decimal(10, 2), HourlyRate)
             .input('GrossPay', sql.Decimal(10, 2), GrossPay)
             .input('NHIFDeduction', sql.Decimal(10, 2), NHIFDeduction)
             .input('NSSFDeduction', sql.Decimal(10, 2), NSSFDeduction)
             .input('HELBDeduction', sql.Decimal(10, 2), HELBDeduction)
             .input('Role', sql.VarChar, Role)
-            .input('ClockInTime', sql.VarChar, ClockInTime)
-            .input('ClockOutTime', sql.VarChar, ClockOutTime)
             .query(`
-                    INSERT INTO Employees (EmployeeID, FirstName, LastName, Email, Password, Address, BirthDate, ContactInfo, Gender, Position, PhotoURL, HourlyRate, GrossPay , NHIFDeduction, NSSFDeduction, HELBDeduction, Role, ClockInTime, ClockOutTime)
-                    VALUES (@EmployeeID, @FirstName, @LastName, @Email, @Password, @Address, @BirthDate, @ContactInfo, @Gender, @Position, @PhotoURL, @HourlyRate, @GrossPay , @NHIFDeduction, @NSSFDeduction, @HELBDeduction, @Role, @ClockInTime, @ClockOutTime);
+                    INSERT INTO Employees (EmployeeID, FirstName, LastName, Email, Password, Address, BirthDate, ContactInfo, Gender, Position, imageUrl, HourlyRate, GrossPay , NHIFDeduction, NSSFDeduction, HELBDeduction, Role)
+                    VALUES (@EmployeeID, @FirstName, @LastName, @Email, @Password, @Address, @BirthDate, @ContactInfo, @Gender, @Position, @imageUrl, @HourlyRate, @GrossPay , @NHIFDeduction, @NSSFDeduction, @HELBDeduction, @Role);
         `);
 
         return result.recordset;
@@ -120,7 +116,7 @@ export const updateEmployeeService = async (id, updatedFields) => {
     try {
         // Initialize an array to store SET parts of the query
         const setParts = [];
-        
+
         // Check if each field is defined and add it to the query if so
         const queryParams = {};
         Object.keys(updatedFields).forEach(fieldName => {

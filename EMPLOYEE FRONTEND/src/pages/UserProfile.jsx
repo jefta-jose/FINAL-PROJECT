@@ -6,12 +6,11 @@ import bulb from "../assets/bulb-lighting-svgrepo-com.png";
 import {
   useGetAllEmployeesQuery,
   useUploadMutation,
-  useUpdateEmployeeMutation,
 } from "../Features/employeeApi";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useForm } from "react-hook-form";
 import { ErrorToast, SuccessToast, LoadingToast } from "../Toaster";
-import uploadIcon from "../../src/assets/CLOCK.png";
+import uploadIcon from "../../src/assets/upload-svgrepo-com.png";
 
 const UserProfile = () => {
   const [progressPercentage] = useState(80);
@@ -23,7 +22,7 @@ const UserProfile = () => {
   const [switchTab, setSwitchTab] = useState(false);
   const [file, setFile] = useState(null);
   const [upload] = useUploadMutation();
-  const [updateUser] = useUpdateEmployeeMutation();
+  const [updateUser] = useUploadMutation();
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -48,32 +47,38 @@ const UserProfile = () => {
   useEffect(() => {
     validateImage(file);
   }, [file]);
-
-  const uploadImage = async () => {
+  const uploadImage = async (employeeId) => {
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("EmployeeID", employeeId); // Append the employee ID to the form data
 
     return await upload(formData).unwrap();
   };
 
   const onSubmitProfile = async (data) => {
     LoadingToast(true);
-    const { imageUrl } = await uploadImage();
+    const { imageUrl } = await uploadImage(employeeId);
 
     if (imageUrl) {
-      data.img_url = imageUrl;
-      data.id = userDetails.id;
-      const res = await updateUser(data).unwrap();
-      if (res.message) {
-        updateUserDetails(data);
+      data.imageUrl = imageUrl;
+      const employeeId = localStorage.getItem("EmployeeID");
+      console.log("Employee ID from local storage:", employeeId); // Log the employee ID
+      if (employeeId) {
+        data.id = employeeId;
+        const res = await updateUser(data).unwrap();
+        if (res.message) {
+          updateUserDetails(data);
+          LoadingToast(false);
+          SuccessToast(res.message);
+        }
+      } else {
         LoadingToast(false);
-        SuccessToast(res.message);
+        ErrorToast("Employee ID not found in localStorage");
       }
     } else {
       LoadingToast(false);
       ErrorToast("Image upload failed");
     }
-    LoadingToast(false);
   };
 
   const onSubmitAuth = async (e) => {
@@ -97,13 +102,15 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    if (employeesData) {
+    const employeeId = localStorage.getItem("EmployeeID");
+    console.log("Employee ID from localStorage:", employeeId); // Log the employeeId
+    if (employeesData && employeeId) {
       const employee = employeesData.find(
         (emp) => emp.EmployeeID === employeeId
       );
       setEmployee(employee || {});
     }
-  }, [employeesData, employeeId]);
+  }, [employeesData]);
 
   const statusText = employeeId ? "Status: Working" : "Status: Not Working";
 
@@ -142,23 +149,6 @@ const UserProfile = () => {
         {switchTab === true ? "Visit Profile" : "Update Profile"}
       </button>
       {switchTab === false ? (
-        <div className="view-profile-container">
-          <h2>Profile</h2>
-          <div className="profile">
-            {userDetails && userDetails.img_url ? (
-              <img src={userDetails.img_url} alt="profile" />
-            ) : (
-              <img src="https://via.placeholder.com/150" alt="profile" />
-            )}
-            <p className="username">
-              Username : <span>{userDetails?.username || ""}</span>
-            </p>
-            <p className="email">
-              Email: <span>{userDetails?.email || ""}</span>
-            </p>
-          </div>
-        </div>
-      ) : (
         <div className="left-container">
           <div className="left-prof-cont">
             <h1>Employee Dashboard</h1>
@@ -166,7 +156,7 @@ const UserProfile = () => {
             <div className="left-profile">
               <div className="user-details-cont">
                 <div className="user-image">
-                  <img src={userImage} alt="" />
+                  <img src={employee.imageUrl} alt="" />
                 </div>
                 <div className="user-identity">
                   <p>
@@ -244,21 +234,13 @@ const UserProfile = () => {
               </div>
             </div>
           </div>
-
+        </div>
+      ) : (
+        <div className="view-profile-container">
           <div className="updater">
             <div className="profile">
-              <h2>Update Profile</h2>
+              <h2 className="head">Update Profile</h2>
               <div className="profilePic">
-                {file ? (
-                  <img src={URL.createObjectURL(file)} alt="profile" />
-                ) : (
-                  <img
-                    src={
-                      userDetails?.img_url || "https://via.placeholder.com/150"
-                    }
-                    alt="profile"
-                  />
-                )}
                 <label htmlFor="fileInput">
                   <img className="upload-Icon" src={uploadIcon} alt="Upload" />
                   <input
@@ -270,19 +252,19 @@ const UserProfile = () => {
               </div>
               <div className="profile">
                 <form onSubmit={handleSubmit(onSubmitProfile)}>
-                  <label htmlFor="username">Username:</label>
+                  <label htmlFor="Address">Address:</label>
                   <input
                     type="text"
-                    id="username"
-                    name="username"
-                    {...register("username")}
+                    id="Address"
+                    name="Address"
+                    {...register("Address")}
                   />
-                  <label htmlFor="email">Email: </label>
+                  <label htmlFor="ContactInfo">ContactInfo: </label>
                   <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    {...register("email")}
+                    type="text"
+                    id="ContactInfo"
+                    name="ContactInfo"
+                    {...register("ContactInfo")}
                   />
                   <input type="submit" value="Update Profile" />
                 </form>

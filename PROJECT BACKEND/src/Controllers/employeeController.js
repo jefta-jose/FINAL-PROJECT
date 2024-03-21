@@ -109,7 +109,7 @@ export const updateEmployee = async (req, res) => {
         ContactInfo: req.body.ContactInfo,
         Gender: req.body.Gender,
         Position: req.body.Position,
-        PhotoURL: req.body.PhotoURL,
+        imageUrl: req.body.imageUrl,
         HourlyRate: req.body.HourlyRate,
         GrossPay: req.body.GrossPay,
         NHIFDeduction: req.body.NHIFDeduction,

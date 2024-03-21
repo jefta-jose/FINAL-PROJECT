@@ -5,14 +5,49 @@
   justify-content: space-evenly;
 
 
+
+  /* Button Styles */
+.visit-profileBtn,
+.update-profileBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 3rem;
+  position: absolute;
+  left: 36rem;
+  top: 6rem;
+}
+
+/* Visit Profile Button Style */
+.visit-profileBtn {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
+/* Update Profile Button Style */
+.update-profileBtn {
+  background-color: #008CBA; /* Blue */
+  color: white;
+}
+
+/* Hover Effect */
+.visit-profileBtn:hover,
+.update-profileBtn:hover {
+  opacity: 0.8;
+}
+
+
   .left-container {
-    width: 40%;
+    width: 100%;
     height: 70%;
     border-radius: 5px;
     margin-top: 0.5rem;
+    display: flex;
 
     .left-prof-cont {
-      width: 90%;
+      width: 40%;
       height: 90%;
       margin: auto;
       margin-top: 1rem;
@@ -59,7 +94,8 @@
   .right-profile {
     width: 40%;
     height: 90%;
-    margin-top: 0.5rem;
+    margin: auto;
+    margin-bottom: 5rem;
 
     button {
       width: 30%;
@@ -183,6 +219,116 @@
       }
     }
   }
+
+/* Container Styles */
+.view-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 6rem;
+}
+
+/* Heading Styles */
+.head {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+/* Updater Styles */
+.updater {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border: 2px solid black;
+  width: 70%;
+  border-radius: 5px;
+}
+
+/* Profile Section Styles */
+.profile {
+  margin-bottom: 20px;
+  width: 72%;
+}
+
+.profile img{
+  width: 2rem;
+}
+
+.profile h2 {
+  font-size: 20px;
+  margin-top: 1rem;
+}
+
+.profile input[type="text"],
+.profile input[type="email"],
+.profile input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.profilePic{
+  label{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border: 1px solid #210440;
+    border-radius: 2px;
+    cursor: pointer;
+
+    input{
+      cursor: pointer;
+    }
+  }
+}
+
+.profile input[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4caf50; /* Green */
+  color: white;
+  cursor: pointer;
+}
+
+.profile input[type="submit"]:hover {
+  opacity: 0.8;
+}
+
+/* Auth Section Styles */
+.auth {
+  margin-bottom: 20px;
+}
+
+.auth h2 {
+  font-size: 20px;
+}
+
+.auth input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.auth input[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #008CBA; /* Blue */
+  color: white;
+  cursor: pointer;
+}
+
+.auth input[type="submit"]:hover {
+  opacity: 0.8;
+}
+
 }
 
 
