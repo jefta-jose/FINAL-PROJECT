@@ -40,8 +40,6 @@ Content-Type: application/json
     "Password": "$2b$05$tICjkDNbXer/S6JIjzV/euqYqmwxqg2LJwq/oSRMgJWf0hmssH.Ti"
 }
 
-### - get all employeese
-GET http://localhost:3000/api/employee
 
 ### get user by id
 GET http://localhost:3000/api/employee/626d3b67-049e-4c35-96b3-3cb45e2f18ba
@@ -131,4 +129,8 @@ Content-Type: application/json
 }
 
 ### upload image
-POST http://localhost:3000/api/upload-user-profile
+GET http://localhost:3000/api/get-picture/1711042420157_c01c8e75159a3d4a40cac96f6a20624a.jpg
+
+
+### - get all employeese
+GET http://localhost:3000/api/employee

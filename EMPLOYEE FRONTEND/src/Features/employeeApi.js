@@ -53,7 +53,10 @@ export const employeeApi = createApi({
                 body: file
             })
         }),
+        getImage: builder.query({
+            query: (filename) => `get-picture/${filename}`,
+        }),
     }),
 });
 
-export const { useUpdateEmployeeMutation ,useUploadMutation ,useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;
+export const { useGetImageQuery, useUpdateEmployeeMutation, useUploadMutation, useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;

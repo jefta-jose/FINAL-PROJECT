@@ -11,6 +11,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { useForm } from "react-hook-form";
 import { ErrorToast, SuccessToast, LoadingToast } from "../Toaster";
 import uploadIcon from "../../src/assets/upload-svgrepo-com.png";
+import { useGetImageQuery } from "../Features/employeeApi";
 
 const UserProfile = () => {
   const [progressPercentage] = useState(80);
@@ -55,31 +56,34 @@ const UserProfile = () => {
     return await upload(formData).unwrap();
   };
 
-  const onSubmitProfile = async (data) => {
+const onSubmitProfile = async (data) => {
     LoadingToast(true);
     const { imageUrl } = await uploadImage(employeeId);
 
+    console.log('Image URL:', imageUrl); // Add this line to log the image URL
+
     if (imageUrl) {
-      data.imageUrl = imageUrl;
-      const employeeId = localStorage.getItem("EmployeeID");
-      console.log("Employee ID from local storage:", employeeId); // Log the employee ID
-      if (employeeId) {
-        data.id = employeeId;
-        const res = await updateUser(data).unwrap();
-        if (res.message) {
-          updateUserDetails(data);
-          LoadingToast(false);
-          SuccessToast(res.message);
+        data.imageUrl = imageUrl;
+        const employeeId = localStorage.getItem("EmployeeID");
+        if (employeeId) {
+            data.id = employeeId;
+            const res = await updateUser(data).unwrap();
+            if (res.message) {
+                updateUserDetails(data);
+                LoadingToast(false);
+                SuccessToast(res.message);
+            }
+        } else {
+            LoadingToast(false);
+            ErrorToast("Employee ID not found in localStorage");
         }
-      } else {
-        LoadingToast(false);
-        ErrorToast("Employee ID not found in localStorage");
-      }
     } else {
-      LoadingToast(false);
-      ErrorToast("Image upload failed");
+        LoadingToast(false);
+        ErrorToast("Image upload failed");
     }
-  };
+};
+
+
 
   const onSubmitAuth = async (e) => {
     e.preventDefault();
@@ -152,12 +156,9 @@ const UserProfile = () => {
         <div className="left-container">
           <div className="left-prof-cont">
             <h1>Employee Dashboard</h1>
-
             <div className="left-profile">
               <div className="user-details-cont">
-                <div className="user-image">
-                  <img src={employee.imageUrl} alt="" />
-                </div>
+                <div className="user-image">{employee?.imageUrl}</div>
                 <div className="user-identity">
                   <p>
                     Name: {employee?.FirstName || ""} {employee?.LastName || ""}
