@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import "./Work.scss";
-import { useGetTimeByIdQuery, useUpdateTimeMutation } from "../Features/employeeApi";
+import {
+  useGetTimeByIdQuery,
+  useUpdateTimeMutation,
+} from "../Features/employeeApi";
 import { ErrorToast, SuccessToast, ToasterContainer } from "../Toaster";
 
 const Work = () => {
@@ -20,41 +23,40 @@ const Work = () => {
     }
   }, [timeData]);
 
-const handleUpdateClockOut = async (newClockOutTime) => {
-  try {
-    if (!employee.RecordID) {
-      // If RecordID is not available, show error toast
-      ErrorToast("RecordID not found. Please try again.");
-      return;
+  const handleUpdateClockOut = async (newClockOutTime) => {
+    try {
+      if (!employee.RecordID) {
+        // If RecordID is not available, show error toast
+        ErrorToast("RecordID not found. Please try again.");
+        return;
+      }
+
+      // Convert newClockOutTime to the required format (HH:mm)
+      const formattedClockOutTime = newClockOutTime.substring(11, 16); // Assuming newClockOutTime is in ISO string format
+
+      // Get ClockInTime from employee state
+      const formattedClockInTime = employee.ClockInTime.substring(11, 16); // Assuming ClockInTime is in ISO string format
+
+      const response = await updateTime({
+        EmployeeID: employee.EmployeeID, // Use RecordID from employee state
+        ClockInTime: formattedClockInTime, // Use the ClockInTime from employee state
+        ClockOutTime: formattedClockOutTime,
+      });
+
+      console.log("Update time response:", response);
+
+      // Update only ClockOutTime in the employee state
+      setEmployee((prevEmployee) => ({
+        ...prevEmployee,
+        ClockOutTime: newClockOutTime,
+      }));
+      SuccessToast("Thank You For Services See You Tomorrow!");
+
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Failed to update time:", error);
     }
-
-    // Convert newClockOutTime to the required format (HH:mm)
-    const formattedClockOutTime = newClockOutTime.substring(11, 16); // Assuming newClockOutTime is in ISO string format
-
-    // Get ClockInTime from employee state
-    const formattedClockInTime = employee.ClockInTime.substring(11, 16); // Assuming ClockInTime is in ISO string format
-
-    const response = await updateTime({
-      EmployeeID: employee.EmployeeID, // Use RecordID from employee state
-      ClockInTime: formattedClockInTime, // Use the ClockInTime from employee state
-      ClockOutTime: formattedClockOutTime,
-    });
-
-    console.log("Update time response:", response);
-
-    // Update only ClockOutTime in the employee state
-    setEmployee((prevEmployee) => ({
-      ...prevEmployee,
-      ClockOutTime: newClockOutTime,
-    }));
-    SuccessToast("Thank You For Services See You Tomorrow!");
-
-    setIsModalOpen(false);
-  } catch (error) {
-    console.error("Failed to update time:", error);
-  }
-};
-
+  };
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -107,7 +109,9 @@ const handleUpdateClockOut = async (newClockOutTime) => {
     <div className="Work-Container">
       <ToasterContainer />
       <div className="clock-holder">
-        <p>Name: {employee.FirstName} {employee.LastName}</p>
+        <p>
+          Name: {employee.FirstName} {employee.LastName}
+        </p>
         <p>ID: {employee.EmployeeID}</p>
         <button onClick={handleClockIn}>Clock In</button>
         <div className="tasks">
@@ -127,7 +131,7 @@ const handleUpdateClockOut = async (newClockOutTime) => {
           </div>
         </div>
         <button>Report An Issue</button>
-        <button onClick={toggleModal}>Clock Out {formatTime(clockOutTime)}</button>
+        <button onClick={toggleModal}>Clock Out</button>
         {isModalOpen && (
           <div className="modal">
             <div className="modal-content">
@@ -143,7 +147,9 @@ const handleUpdateClockOut = async (newClockOutTime) => {
                   onChange={(e) => setClockOutTime(e.target.value)}
                 />
               </label>
-              <button onClick={() => handleUpdateClockOut(clockOutTime)}>Update</button>
+              <button onClick={() => handleUpdateClockOut(clockOutTime)}>
+                Update
+              </button>
             </div>
           </div>
         )}

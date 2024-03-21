@@ -8,6 +8,7 @@ import timeRouter from './src/Routes/timeRouter.js';
 import payrollRouter from './src/Routes/parollRoutes.js';
 import advanceRouter from './src/Routes/adavanceRoutes.js';
 import scheduleRouter from './src/Routes/scheduleRoutes.js';
+import uploadImageRouter from './src/Routes/uploadRouter.js';
 
 const app = express();
 dotenv.config();
@@ -24,6 +25,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors(corsOptions));
 
+app.use('/photos/users', express.static('src/photos/users'));
+
+
 app.get('/health', (req, res) => {
     res.status(200).send('I am very healthy💪');
 });
@@ -33,7 +37,9 @@ app.use('/api', employeeRouter);
 app.use('/api', timeRouter);
 app.use('/api', payrollRouter);
 app.use('/api', advanceRouter);
-app.use('/api', scheduleRouter)
+app.use('/api', scheduleRouter);
+app.use('/api', uploadImageRouter);
+
 
 // Start the server
 app.listen(port, () => {

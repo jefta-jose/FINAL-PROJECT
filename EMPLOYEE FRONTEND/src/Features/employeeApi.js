@@ -38,7 +38,14 @@ export const employeeApi = createApi({
             query: (EmployeeID) => `getTimeByEmployeeID/${EmployeeID}`, // Adjusted URL
             providesTags: (result, error, arg) => [{ type: 'employee', id: arg }],
         }),
+        upload: builder.mutation({
+            query: (file) => ({
+                url: 'upload-user-profile',
+                method: 'POST',
+                body: file
+            })
+        }),
     }),
 });
 
-export const { useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;
+export const { useUploadMutation ,useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;
