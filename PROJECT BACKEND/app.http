@@ -21,10 +21,12 @@ Content-Type: application/json
     "Role": "Employee"
   }
 
+### - get all employeese
+GET http://localhost:3000/api/employee
 
 
 #### - UPDATE EMPLOYEE
-PUT http://localhost:3000/api/employee/ef0dd005-d9d3-4686-9b4a-3ebc1a378083
+PUT http://localhost:3000/api/employee/fce8e12d-d52b-47c3-809a-8af2ce52409e
 Content-Type: application/json
 
 {
@@ -55,7 +57,7 @@ POST http://localhost:3000/api/createTime
 Content-Type: application/json
 
 {
-    "EmployeeID": "ef0dd005-d9d3-4686-9b4a-3ebc1a378083",
+    "EmployeeID": "fce8e12d-d52b-47c3-809a-8af2ce52409e",
     "ClockInTime": "08:30",
     "ClockOutTime": "22:30",
     "Rate": 10
@@ -66,7 +68,7 @@ GET http://localhost:3000/api/getTime
 
 
 ### - get ALL TIMES BY ID
-GET http://localhost:3000/api/getTimeByEmployeeID/ef0dd005-d9d3-4686-9b4a-3ebc1a378083
+GET http://localhost:3000/api/getTimeByEmployeeID/fce8e12d-d52b-47c3-809a-8af2ce52409e
 
 ### update the time
 POST http://localhost:3000/api/updateTime

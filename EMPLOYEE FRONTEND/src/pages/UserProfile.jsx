@@ -11,7 +11,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 import { useForm } from "react-hook-form";
 import { ErrorToast, SuccessToast, LoadingToast } from "../Toaster";
 import uploadIcon from "../../src/assets/upload-svgrepo-com.png";
-import { useGetImageQuery } from "../Features/employeeApi";
+import { useGetTimeByIdQuery } from "../Features/employeeApi";
 
 const UserProfile = () => {
   const [progressPercentage] = useState(80);
@@ -25,23 +25,36 @@ const UserProfile = () => {
   const [upload] = useUploadMutation();
   const [updateUser] = useUploadMutation();
 
+  const EmpID = localStorage.getItem("EmployeeID");
+  const { data: timedata, refetch } = useGetTimeByIdQuery(EmpID);
+  useEffect(() => {
+    // Refetch the data when the employeeID changes
+    refetch();
+  }, [EmpID, refetch]);
+
+  const formatTime = (timeString) => {
+    const time = new Date(timeString);
+    return time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
 
   const [imageData, setImageData] = useState(null);
 
   useEffect(() => {
     // Retrieve filename from local storage
-    const filename = localStorage.getItem('filename');
+    const filename = localStorage.getItem("filename");
 
     const fetchImage = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/get-picture/${filename}`);
+        const response = await fetch(
+          `http://localhost:3000/api/get-picture/${filename}`
+        );
         if (!response.ok) {
-          throw new Error('Failed to fetch image');
+          throw new Error("Failed to fetch image");
         }
         const blob = await response.blob();
         setImageData(URL.createObjectURL(blob));
       } catch (error) {
-        console.error('Error fetching image:', error);
+        console.error("Error fetching image:", error);
       }
     };
 
@@ -206,6 +219,40 @@ const UserProfile = () => {
                   <p>Email: {employee?.Email || ""}</p>
                   <button>{statusText}</button>
                 </div>
+              </div>
+
+              <div className="attendance-table">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>ID</th>
+                      <th>Clock In Time</th>
+                      <th>Clock Out Time</th>
+                      <th>Hours Worked</th>
+                      <th>Overtime</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {timedata &&
+                      timedata.map((employee) => (
+                        <tr key={employee.RecordID}>
+                          <td>
+                            {employee.FirstName} {employee.LastName}
+                          </td>
+                          <td>
+                            <span className="employee-id">
+                              {employee.EmployeeID}
+                            </span>
+                          </td>
+                          <td>{formatTime(employee.ClockInTime)}</td>
+                          <td>{formatTime(employee.ClockOutTime)}</td>
+                          <td>{employee.HoursWorked} hours</td>
+                          <td>{employee.Overtime} hours</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>

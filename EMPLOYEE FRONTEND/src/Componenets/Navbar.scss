@@ -45,6 +45,14 @@
         align-items: center;
         justify-content: space-evenly;
 
+        img{
+            width: 4rem;
+            height: 4rem;
+            margin-top: .3rem;
+            margin-bottom: .3rem;
+            border-radius: 50%;
+        }
+
         .mails{
             cursor: pointer;
         }

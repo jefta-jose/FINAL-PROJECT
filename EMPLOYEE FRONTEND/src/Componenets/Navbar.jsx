@@ -4,9 +4,35 @@ import bulb from "../assets/bulb-lighting-svgrepo-com.png";
 import mail from "../assets/Rectangle 151.png";
 import user from "../assets/Ellipse 7.png";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navbar = () => {
+
+  const [imageData, setImageData] = useState(null);
+
+  useEffect(() => {
+    // Retrieve filename from local storage
+    const filename = localStorage.getItem('filename');
+
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/get-picture/${filename}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch image');
+        }
+        const blob = await response.blob();
+        setImageData(URL.createObjectURL(blob));
+      } catch (error) {
+        console.error('Error fetching image:', error);
+      }
+    };
+
+    // Fetch image when component mounts
+    if (filename) {
+      fetchImage();
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
 
@@ -38,7 +64,7 @@ const Navbar = () => {
         <img src={bulb} alt="" onClick={toggleDarkMode} />
       </div>
       <div className="user">
-        <img src={user} alt="" />
+        <img src={imageData} alt="" />
       </div>
     </div>
   );

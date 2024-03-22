@@ -338,3 +338,53 @@
 }
 
 
+
+// Add these styles to your existing SCSS file or create a new one
+.attendance-table {
+  margin-top: 20px;
+  height: 70vh;
+  overflow-x: hidden;
+
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    
+
+    th,
+    td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      // background-color: none;
+      color: white;
+    }
+
+    td {
+      background-color: #E5958E;
+      font-weight: 700;
+      
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    .employee-id {
+      background-color: #f0f0f0;
+      padding: 4px;
+      border: 1px dashed #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    
+  }
+}
+
+
