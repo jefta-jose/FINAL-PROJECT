@@ -38,11 +38,12 @@ export const createTime = async (req, res) => {
         EmployeeID: req.body.EmployeeID,
         ClockInTime: req.body.ClockInTime,
         ClockOutTime: req.body.ClockOutTime,
-        Rate: req.body.Rate // New addition
+        Rate: req.body.Rate,
+        Date: req.body.Date
     };
 
     try {
-        const result = await createTimeService(employeeDetails.EmployeeID, employeeDetails.ClockInTime, employeeDetails.ClockOutTime, employeeDetails.Rate);
+        const result = await createTimeService(employeeDetails.EmployeeID, employeeDetails.ClockInTime, employeeDetails.ClockOutTime, employeeDetails.Rate, employeeDetails.Date);
         res.status(201).json({ message: result });
     } catch (error) {
         res.status(500).json({ error: error.message });

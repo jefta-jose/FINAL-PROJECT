@@ -25,6 +25,7 @@ const UserProfile = () => {
   const [upload] = useUploadMutation();
   const [updateUser] = useUploadMutation();
 
+  
   const EmpID = localStorage.getItem("EmployeeID");
   const { data: timedata, refetch } = useGetTimeByIdQuery(EmpID);
   useEffect(() => {
@@ -189,6 +190,12 @@ const UserProfile = () => {
     },
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+};
+
+
   return (
     <div className="profile-container">
       <button
@@ -225,8 +232,7 @@ const UserProfile = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>ID</th>
+                      <th>Date</th>
                       <th>Clock In Time</th>
                       <th>Clock Out Time</th>
                       <th>Hours Worked</th>
@@ -237,14 +243,7 @@ const UserProfile = () => {
                     {timedata &&
                       timedata.map((employee) => (
                         <tr key={employee.RecordID}>
-                          <td>
-                            {employee.FirstName} {employee.LastName}
-                          </td>
-                          <td>
-                            <span className="employee-id">
-                              {employee.EmployeeID}
-                            </span>
-                          </td>
+                          <td className="date" >{formatDate(employee.Date)}</td>
                           <td>{formatTime(employee.ClockInTime)}</td>
                           <td>{formatTime(employee.ClockOutTime)}</td>
                           <td>{employee.HoursWorked} hours</td>

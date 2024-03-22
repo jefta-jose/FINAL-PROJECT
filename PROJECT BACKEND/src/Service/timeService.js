@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 export const getTimeService = async () => {
     try {
         const query = `
-            SELECT TR.RecordID, E.EmployeeID, E.FirstName, E.LastName, TR.ClockInTime, TR.ClockOutTime, TR.HoursWorked, TR.Overtime, TR.Rate
+            SELECT TR.RecordID, E.EmployeeID, E.FirstName, E.LastName, TR.ClockInTime, TR.ClockOutTime, TR.HoursWorked, TR.Overtime, TR.Rate, TR.Date
             FROM Attendance TR
             JOIN Employees E ON TR.EmployeeID = E.EmployeeID
         `;
@@ -20,7 +20,7 @@ export const getTimeService = async () => {
 export const getTimeByEmployeeIDService = async (employeeID) => {
     try {
         const query = `
-            SELECT TR.RecordID, E.EmployeeID, E.FirstName, E.LastName, TR.ClockInTime, TR.ClockOutTime, TR.HoursWorked, TR.Overtime, TR.Rate
+            SELECT TR.RecordID, E.EmployeeID, E.FirstName, E.LastName, TR.ClockInTime, TR.ClockOutTime, TR.HoursWorked, TR.Overtime, TR.Rate, TR.Date
             FROM Attendance TR
             JOIN Employees E ON TR.EmployeeID = E.EmployeeID
             WHERE TR.EmployeeID = @EmployeeID
@@ -93,12 +93,9 @@ export const createTimeService = async (EmployeeID, ClockInTime, ClockOutTime, R
 
         // Insert into the database
         const query = `
-            INSERT INTO Attendance (RecordID, EmployeeID, ClockInTime, ClockOutTime, HoursWorked, Overtime, Rate)
-            VALUES (@RecordID, @EmployeeID, @ClockInTime, @ClockOutTime, @HoursWorked, @Overtime, @Rate)
+            INSERT INTO Attendance (RecordID, EmployeeID, ClockInTime, ClockOutTime, HoursWorked, Overtime, Rate, Date)
+            VALUES (@RecordID, @EmployeeID, @ClockInTime, @ClockOutTime, @HoursWorked, @Overtime, @Rate, @Date)
         `;
-
-        console.log("Query:", query); // Log the query
-        console.log("Parameters:", { RecordID, EmployeeID, ClockInTime, ClockOutTime, HoursWorked, Overtime }); // Log parameters
         await poolRequest()
             .input('RecordID', sql.VarChar, RecordID)
             .input('EmployeeID', sql.VarChar, EmployeeID)
@@ -107,6 +104,7 @@ export const createTimeService = async (EmployeeID, ClockInTime, ClockOutTime, R
             .input('HoursWorked', sql.Decimal(10, 2), HoursWorked)
             .input('Overtime', sql.Decimal(10, 2), Overtime)
             .input('Rate', sql.Decimal(10, 2), Rate)
+            .input('Date', sql.Date, new Date().toISOString().split('T')[0]) // Current date
             .query(query);
 
         return "Time record created successfully";
@@ -115,6 +113,7 @@ export const createTimeService = async (EmployeeID, ClockInTime, ClockOutTime, R
         return error;
     }
 }
+
 
 
 

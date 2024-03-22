@@ -32,11 +32,13 @@ CREATE TABLE Attendance (
     EmployeeID VARCHAR(100),
     ClockInTime TIME DEFAULT '08:00',
     ClockOutTime TIME DEFAULT '17:00',
-    HoursWorked DECIMAL (10,2),
-    Overtime DECIMAL (10,2),
+    HoursWorked DECIMAL(10,2),
+    Overtime DECIMAL(10,2),
     Rate DECIMAL(10,2),
+    Date DATE,
     FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE
 );
+
 
 SELECT * FROM Attendance
 DROP TABLE Attendance
