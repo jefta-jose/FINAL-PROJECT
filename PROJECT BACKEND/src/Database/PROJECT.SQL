@@ -87,3 +87,17 @@ CREATE TABLE Schedule (
 
 SELECT * FROM Schedule
 DROP TABLE Schedule
+-----------------------------------------------
+
+CREATE TABLE Email (
+    EmailiD VARCHAR(100) PRIMARY KEY,
+    EmployeeID VARCHAR(100),
+    EmailSubject VARCHAR(100),
+    EmailContent VARCHAR(100),
+    Emailbody VARCHAR(100),
+    Date DATE,
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE
+);
+
+SELECT * FROM Email
+DROP TABLE Email

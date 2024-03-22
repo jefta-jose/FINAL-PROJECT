@@ -10,6 +10,7 @@ import advanceRouter from './src/Routes/adavanceRoutes.js';
 import scheduleRouter from './src/Routes/scheduleRoutes.js';
 import uploadImageRouter from './src/Routes/uploadRouter.js';
 import getImageRouter from './src/Routes/getImageRouter.js';
+import emailRouter from './src/Routes/emailRoute.js';
 
 const app = express();
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api', advanceRouter);
 app.use('/api', scheduleRouter);
 app.use('/api', uploadImageRouter);
 app.use('/api', getImageRouter);
+app.use('/api', emailRouter);
 
 
 // Start the server

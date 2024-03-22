@@ -136,3 +136,17 @@ GET http://localhost:3000/api/get-picture/Untitled.jpg
 
 ### - get all employeese
 GET http://localhost:3000/api/employee
+
+### create Email Service
+POST http://localhost:3000/api/email
+Content-Type: application/json
+
+{
+    "EmployeeID": "fce8e12d-d52b-47c3-809a-8af2ce52409e",
+    "EmailSubject": "THIS IS YOUR FIRST TASK",
+    "EmailContent": "BAZU BAZU",
+    "Emailbody": "jeff last email"
+}
+
+### GET EMAILS
+GET http://localhost:3000/api/email/fce8e12d-d52b-47c3-809a-8af2ce52409e

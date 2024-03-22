@@ -1,45 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import user from "../assets/Ellipse 14.png";
-import "./Emails.scss"
+import "./Emails.scss";
+import { useGetEmailByIdQuery } from "../Features/employeeApi";
+import box from "../assets/email-svgrepo-com.png";
+import emailImage from "../assets/d5b5705b3e76653200c33cdda531017d.jpg";
 
 const Emails = () => {
+  const EmpID = localStorage.getItem("EmployeeID");
+  const { data: emaildata, refetch } = useGetEmailByIdQuery(EmpID);
+  useEffect(() => {
+    // Refetch the data when the employeeID changes
+    refetch();
+  }, [EmpID, refetch]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString([], {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const [selectedEmail, setSelectedEmail] = useState(null);
+
+  const handleEmailClick = (email) => {
+    setSelectedEmail(email);
+  };
+
+  const handleGoBack = () => {
+    setSelectedEmail(null);
+  };
+
   return (
-    <div className="email-container" >
+    <div className="email-container">
       <div className="display-inbox">
         <div className="msg-one">
-        <div className="user-name">
-          <h2>Simon Kamau</h2>
-          <h2>1:24 PM</h2>
-        </div>
-        <h3>Scheduled Meeting</h3>
-        <p>
-          Hae Simon Kmau I just Scheduled a meeting with the team to go over
-          some designs ...............
-        </p>
-        </div>
-      </div>
-
-      <div className="read-msgs">
-        <div className="user-details">
-          <img src={user} alt="" />
-          <h2>Simon Kamau</h2>
-        </div>
-
-        <div className="email-msg">
-          <h3>Scheduled Meeting</h3>
-          <p>
-            Hi Simon Kamau, Hope this message finds you well. I wanted to inform
-            you that I've successfully scheduled a meeting with the team to
-            delve into some exciting design discussions. Your insights and
-            expertise will be invaluable as we collaboratively navigate through
-            the creative process. The meeting is set for [date and time], and
-            I'm looking forward to your valuable contributions. Feel free to
-            prepare any materials or thoughts you'd like to share during our
-            session. Your input is crucial, and I believe this collaborative
-            effort will lead us to innovative and impactful design solutions.
-            Looking forward to our productive session! Best regards, Jeff
-            Ndegwa.
-          </p>
+          {selectedEmail ? (
+            <div className="selected-email">
+              <div className="email-cont">
+                <button onClick={handleGoBack}>Go Back</button>
+                <h3>{selectedEmail.EmailSubject}</h3>
+                <span className="email-body">{selectedEmail.Emailbody}</span>
+                <p>{formatDate(selectedEmail.Date)}</p>
+                <button>reply</button>
+                <button>forward</button>
+              </div>
+              <div className="imager">
+                <img src={emailImage} alt="" />
+              </div>
+            </div>
+          ) : (
+            <ul className="inbox">
+              {emaildata &&
+                emaildata.map((email) => (
+                  <li
+                    className="email-item"
+                    key={email.RecordID}
+                    onClick={() => handleEmailClick(email)}
+                  >
+                    <img style={{ marginRight : "50px"}} src={box} alt="" />
+                    <p style={{marginRight : "50px"}} >{email.EmailContent}</p>
+                    <span className="date">{formatDate(email.Date)}</span>
+                  </li>
+                ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>
