@@ -25,15 +25,31 @@ const UserProfile = () => {
   const [upload] = useUploadMutation();
   const [updateUser] = useUploadMutation();
 
+
   const [imageData, setImageData] = useState(null);
-  const filename = localStorage.getItem("filename");
-  const { data } = useGetImageQuery(filename);
 
   useEffect(() => {
-    if (data) {
-      setImageData(data);
+    // Retrieve filename from local storage
+    const filename = localStorage.getItem('filename');
+
+    const fetchImage = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/get-picture/${filename}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch image');
+        }
+        const blob = await response.blob();
+        setImageData(URL.createObjectURL(blob));
+      } catch (error) {
+        console.error('Error fetching image:', error);
+      }
+    };
+
+    // Fetch image when component mounts
+    if (filename) {
+      fetchImage();
     }
-  }, [data]);
+  }, []);
 
   const { register, handleSubmit } = useForm({
     defaultValues: {
@@ -178,7 +194,7 @@ const UserProfile = () => {
               <div className="user-details-cont">
                 <div>
                   {imageData && (
-                    <img src={imageData.imageUrl} alt="Employee Image" /> // Render the image if image data is available
+                    <img src={imageData} alt="Employee Image" /> // Render the image if image data is available
                   )}
                 </div>
                 <div className="user-identity">
