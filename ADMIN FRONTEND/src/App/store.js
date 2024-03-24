@@ -10,10 +10,10 @@ export const store = configureStore({
     [employeeApi.reducerPath]: employeeApi.reducer,
     [timeApi.reducerPath]: timeApi.reducer,
     [payrollApi.reducerPath]: payrollApi.reducer,
-    [advanceApi.reducerPath]: advanceApi.reducer // Add the advance API reducer here
+    [advanceApi.reducerPath]: advanceApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(employeeApi.middleware, timeApi.middleware, payrollApi.middleware, advanceApi.middleware) // Add advanceApi.middleware to the middleware
+    getDefaultMiddleware().concat(employeeApi.middleware, timeApi.middleware, payrollApi.middleware, advanceApi.middleware)
 });
 
 setupListeners(store.dispatch);

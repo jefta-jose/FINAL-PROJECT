@@ -1,63 +1,104 @@
 .email-container {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    justify-content: space-evenly;
-  
-    .display-inbox {
-      width: 30%;
-      height: 80vh;
-      border-radius: 5px;
-      color: black;
-      padding: 0 5px 0 5px;
-      background-color: #E5958E;
-  
-      .msg-one {
-        border-bottom: 2px solid #ffba00;
-  
-        .user-name {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 1rem;
-          border-bottom: 1px solid gainsboro;
-          border-radius: 5px;
-        }
-        p{
-          margin-bottom: .5rem;
-        }
-      }
-    }
-  
-    .read-msgs {
-      width: 60%;
-      border: 2px solid #E5958E;
-      border-radius: 5px;
-      display: flex;
-      flex-direction: column;
-      height: 79.5vh;
-      background-color: #E5958E;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  justify-content: space-evenly;
 
-  
-      .user-details{
-          display: flex;
-          align-items: center;
-          border-bottom: 1px solid #0c3b2e;
-          margin-bottom: .5rem;
-          img{
-              margin-top: .2rem;
-              margin-left: 2rem;
-              margin-bottom: .2rem;
-          }
-          h2{
-              margin-left: 1rem;
-          }
-      }
-  
-      .email-msg{
-          padding: 1rem;
-          color: black;
-      }
+  .display-inbox {
+    width: 90%;
+    background-color: #210440;
+    height: 80vh;
+    border-radius: 5px;
+    color: white;
+    padding: 0 5px 0 5px;
+    overflow-x: hidden;
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 1rem;
+      overflow-x: hidden;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #e4e4e4;
+      padding: 10px;
+      transition: 0.5s;
+      background-color: rgba(255, 255, 255, 0.201);
+      border: 2px solid #e4e4e4;
+      margin-bottom: 1rem;
+    }
+
+    .date {
+      flex: 1;
+    }
+
+    .date:first-child {
+      margin-right: 10px;
+    }
+
+    img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    /* Style for hover effect */
+    li:hover {
+      background-color: #f5f5f5;
+      cursor: pointer;
+      color: black;
+      transform: scale(.95); /* Zoom effect */
+      transition: transform 1s ease; /* Smooth transition */
     }
   }
-  
+}
+
+.selected-email {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  .imager {
+    width: 30%;
+
+    img {
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.selected-email h3 {
+  margin-top: 1rem;
+}
+
+.selected-email p {
+  margin-bottom: 10px;
+}
+
+.selected-email button {
+  margin-right: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.selected-email button:hover {
+  background-color: #0056b3;
+}
+
+.selected-email button:active {
+  background-color: #0056b3;
+  transform: translateY(1px);
+}
