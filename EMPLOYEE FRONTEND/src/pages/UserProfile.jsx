@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import userImage from "../assets/Ellipse 14.png";
 import ReactApexChart from "react-apexcharts";
 import "./UserProfile.scss";
-import bulb from "../assets/bulb-lighting-svgrepo-com.png";
 import {
   useGetAllEmployeesQuery,
   useUploadMutation,
@@ -12,8 +10,28 @@ import { useForm } from "react-hook-form";
 import { ErrorToast, SuccessToast, LoadingToast } from "../Toaster";
 import uploadIcon from "../../src/assets/upload-svgrepo-com.png";
 import { useGetTimeByIdQuery } from "../Features/employeeApi";
+import { useGetHoursByIdQuery } from "../Features/employeeApi";
+import { useGetEmailByIdQuery } from "../Features/employeeApi";
+import box from "../assets/email-svgrepo-com.png";
+import emailImage from "../assets/d5b5705b3e76653200c33cdda531017d.jpg";
 
 const UserProfile = () => {
+  const EmpeID = localStorage.getItem("EmployeeID");
+  const { data: emaildata } = useGetEmailByIdQuery(EmpeID);
+  useEffect(() => {
+    // Refetch the data when the employeeID changes
+  }, [EmpeID]);
+
+  const [selectedEmail, setSelectedEmail] = useState(null);
+
+  const handleEmailClick = (email) => {
+    setSelectedEmail(email);
+  };
+
+  const handleGoBack = () => {
+    setSelectedEmail(null);
+  };
+
   const [progressPercentage] = useState(80);
   const [progressPercentage1] = useState(120);
   const [employee, setEmployee] = useState({}); // Declare employee state and its setter
@@ -25,7 +43,54 @@ const UserProfile = () => {
   const [upload] = useUploadMutation();
   const [updateUser] = useUploadMutation();
 
-  
+  const [barChartData, setBarChartData] = useState({
+    options: {
+      chart: {
+        id: "basic-bar",
+      },
+      xaxis: {
+        categories: [],
+      },
+    },
+    series: [
+      {
+        name: "Hours Worked",
+        data: [],
+      },
+    ],
+  });
+
+  const EMPID = localStorage.getItem("EmployeeID"); // Retrieve employee ID from local storage
+
+  const { data: hoursForSpecificDayById } = useGetHoursByIdQuery(EMPID); // Pass the employee ID to the query hook
+
+  useEffect(() => {
+    if (hoursForSpecificDayById) {
+      const categories = Object.keys(hoursForSpecificDayById.totalHours);
+      const data = categories.map(
+        (day) => hoursForSpecificDayById.totalHours[day]
+      );
+
+      setBarChartData({
+        ...barChartData,
+        options: {
+          ...barChartData.options,
+          xaxis: {
+            categories: categories,
+          },
+        },
+        series: [
+          {
+            name: "Hours Worked",
+            data: data,
+          },
+        ],
+      });
+    }
+  }, [hoursForSpecificDayById]);
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const EmpID = localStorage.getItem("EmployeeID");
   const { data: timedata, refetch } = useGetTimeByIdQuery(EmpID);
   useEffect(() => {
@@ -166,35 +231,15 @@ const UserProfile = () => {
 
   const statusText = employeeId ? "Status: Working" : "Status: Not Working";
 
-  const pieChartData = {
-    series: [300, 50, 100],
-    options: {
-      labels: ["Completed", "In Progress", "Not Started"],
-      colors: ["#FF6384", "#36A2EB", "#FFCE56"],
-      legend: {
-        show: false,
-      },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200,
-            },
-            legend: {
-              position: "bottom",
-            },
-          },
-        },
-      ],
-    },
-  };
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-};
-
+    return date.toLocaleDateString([], {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   return (
     <div className="profile-container">
@@ -243,7 +288,7 @@ const UserProfile = () => {
                     {timedata &&
                       timedata.map((employee) => (
                         <tr key={employee.RecordID}>
-                          <td className="date" >{formatDate(employee.Date)}</td>
+                          <td className="date">{formatDate(employee.Date)}</td>
                           <td>{formatTime(employee.ClockInTime)}</td>
                           <td>{formatTime(employee.ClockOutTime)}</td>
                           <td>{employee.HoursWorked} hours</td>
@@ -278,43 +323,75 @@ const UserProfile = () => {
             </div>
 
             <div className="monthly-statistics">
-              <h2>MONTHLY STATISTICS</h2>
+              <h2>YOUR WEEKLY STATISTICS</h2>
 
-              <div className="chart-content">
-                <div className="tasks-hours-container">
-                  <div className="tasks-container">
-                    <p>TASKS</p>
-                    <progress value={progressPercentage} max="100"></progress>
-                  </div>
-
-                  <div className="hours-container">
-                    <p>HOURS</p>
-                    <progress value={progressPercentage1} max="100"></progress>
-                  </div>
-                </div>
-
-                <div className="chart">
-                  <ReactApexChart
-                    type="pie"
-                    options={pieChartData.options}
-                    series={pieChartData.series}
-                    width="380"
-                  />
-                </div>
+              <div className="graph-view">
+                <ReactApexChart
+                  options={barChartData.options}
+                  series={barChartData.series}
+                  type="bar"
+                  height={350}
+                />
               </div>
             </div>
-
             <div className="upcoming-schedules">
-              <h3>Upcoming Tasks</h3>
-              <div className="task">
-                <div className="day">
-                  <p>Monday</p>
-                </div>
-                <div className="task-title">
-                  <p>Design a new website</p>
-                </div>
-                <div className="time">
-                  <p>10:00am - 11:00am</p>
+              <h3 className="schedules-title">Upcoming Tasks</h3>
+              <div className="task-container">
+                <div className="inbox-display">
+                  <div className="msg-one">
+                    {selectedEmail ? (
+                      <div className="selected-email">
+                        <div className="email-details">
+                          <button
+                            onClick={handleGoBack}
+                            className="go-back-btn"
+                          >
+                            Go Back
+                          </button>
+                          <h3 className="email-subject">
+                            {selectedEmail.EmailSubject}
+                          </h3>
+                          <span className="email-body">
+                            {selectedEmail.Emailbody}
+                          </span>
+                          <p className="email-date">
+                            {formatDate(selectedEmail.Date)}
+                          </p>
+                          <button className="reply-btn">Reply</button>
+                          <button className="forward-btn">Forward</button>
+                        </div>
+                        <div className="email-image-container">
+                          <img
+                            src={emailImage}
+                            alt=""
+                            className="email-image"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <ul
+                        className="inbox-list"
+                        style={{ height: "5rem", overflowY: "auto" }}
+                      >
+                        {emaildata &&
+                          emaildata.map((email) => (
+                            <li
+                              className="email-item"
+                              key={email.RecordID}
+                              onClick={() => handleEmailClick(email)}
+                            >
+                              <img src={box} alt="" className="email-icon" />
+                              <p className="email-content">
+                                {email.EmailContent}
+                              </p>
+                              <span className="email-date">
+                                {formatDate(email.Date)}
+                              </span>
+                            </li>
+                          ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

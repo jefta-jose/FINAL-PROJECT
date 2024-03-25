@@ -38,6 +38,40 @@ CREATE TABLE Attendance (
     Date DATE,
     FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID) ON DELETE CASCADE
 );
+-- Selecting the hours worked for Monday
+SELECT SUM(HoursWorked) AS TotalHoursWorked
+FROM Attendance
+WHERE DATEPART(dw, Date) = 2; -- 2 represents Monday (1 for Sunday, 2 for Monday, ..., 7 for Saturday)
+
+-- Selecting the hours worked for Tuesday
+SELECT SUM(HoursWorked) AS TotalHoursWorked
+FROM Attendance
+WHERE DATEPART(dw, Date) = 3; -- 3 represents Tuesday (1 for Sunday, 2 for Monday, ..., 7 for Saturday)
+
+-- Selecting the hours worked for Wednesday
+SELECT SUM(HoursWorked) AS TotalHoursWorked
+FROM Attendance
+WHERE DATEPART(dw, Date) = 4; -- 4 represents Wednesday (1 for Sunday, 2 for Monday, ..., 7 for Saturday)
+
+-- Selecting the hours worked for Thursday
+SELECT SUM(HoursWorked) AS TotalHoursWorked
+FROM Attendance
+WHERE DATEPART(dw, Date) = 5; -- 5 represents Thursday (1 for Sunday, 2 for Monday, ..., 7 for Saturday)
+
+-- Selecting the hours worked for Friday
+SELECT SUM(HoursWorked) AS TotalHoursWorked
+FROM Attendance
+WHERE DATEPART(dw, Date) = 6; -- 6 represents Friday (1 for Sunday, 2 for Monday, ..., 7 for Saturday)
+
+-- Selecting the hours worked for Saturday
+SELECT SUM(HoursWorked) AS TotalHoursWorked
+FROM Attendance
+WHERE DATEPART(dw, Date) = 7; -- 7 represents Saturday (1 for Sunday, 2 for Monday, ..., 7 for Saturday)
+
+-- Selecting the hours worked for Sunday
+SELECT SUM(HoursWorked) AS TotalHoursWorked
+FROM Attendance
+WHERE DATEPART(dw, Date) = 1; -- 1 represents Sunday (1 for Sunday, 2 for Monday, ..., 7 for Saturday)
 
 
 SELECT * FROM Attendance

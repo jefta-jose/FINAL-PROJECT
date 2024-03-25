@@ -8,19 +8,19 @@ export const employeeApi = createApi({
     endpoints: (builder) => ({
         login: builder.mutation({
             query: ({ Email, Password }) => ({
-                url: 'employee/login', // Adjusted URL
+                url: 'employee/login',
                 method: 'POST',
                 body: { Email: Email, Password: Password },
                 invalidateTags: ['employee'],
             }),
         }),
         getAllEmployees: builder.query({
-            query: () => 'employee/', // Adjusted URL
+            query: () => 'employee/',
             providesTags: ['employee'],
         }),
         updateEmployee: builder.mutation({
             query: ({ id, employeeData }) => ({
-                url: `employee/${id}`, // Adjusted URL
+                url: `employee/${id}`,
                 method: 'PUT',
                 body: employeeData,
                 invalidateTags: ['employee'],
@@ -28,7 +28,7 @@ export const employeeApi = createApi({
         }),
         updateTime: builder.mutation({
             query: ({ EmployeeID, ClockInTime, ClockOutTime }) => ({
-                url: 'updateTime', // Adjusted URL
+                url: 'updateTime',
                 method: 'POST',
                 body: { EmployeeID, ClockInTime, ClockOutTime },
                 invalidateTags: ['employee'],
@@ -36,14 +36,14 @@ export const employeeApi = createApi({
         }),
         createTime: builder.mutation({
             query: ({ EmployeeID, ClockInTime, ClockOutTime }) => ({
-                url: 'createTime', // Adjusted URL
+                url: 'createTime',
                 method: 'POST',
                 body: { EmployeeID, ClockInTime, ClockOutTime },
                 invalidateTags: ['employee'],
             }),
         }),
         getTimeById: builder.query({
-            query: (EmployeeID) => `getTimeByEmployeeID/${EmployeeID}`, // Adjusted URL
+            query: (EmployeeID) => `getTimeByEmployeeID/${EmployeeID}`,
             providesTags: (result, error, arg) => [{ type: 'employee', id: arg }],
         }),
         upload: builder.mutation({
@@ -57,12 +57,15 @@ export const employeeApi = createApi({
             query: (filename) => `get-picture/${filename}`,
         }),
         getTime: builder.query({
-            query: (id) => `/getTime/${id}`,
+            query: (id) => `getTime/${id}`,
         }),
         getEmailById: builder.query({
-            query: (EmployeeID) => `/email/${EmployeeID}`,
+            query: (EmployeeID) => `email/${EmployeeID}`,
+        }),
+        getHoursById: builder.query({
+            query: (EmployeeID) => `days/${EmployeeID}`,
         })
     }),
 });
 
-export const { useGetEmailByIdQuery ,useGetTimeQuery ,useGetImageQuery, useUpdateEmployeeMutation, useUploadMutation, useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;
+export const { useGetHoursByIdQuery , useGetEmailByIdQuery ,useGetTimeQuery ,useGetImageQuery, useUpdateEmployeeMutation, useUploadMutation, useLoginMutation, useGetAllEmployeesQuery, useUpdateTimeMutation, useCreateTimeMutation, useGetTimeByIdQuery } = employeeApi;

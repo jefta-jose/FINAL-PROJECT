@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { hoursWorked , getBestEmployee, getTimeByEmployeeID, updateTime, getTime, createTime } from '../Controllers/timeController.js'
+import { getDaysHoursByEmployeeID, getDaysHours, hoursWorked , getBestEmployee, getTimeByEmployeeID, updateTime, getTime, createTime } from '../Controllers/timeController.js'
 
 const timeRouter = Router();
 
@@ -9,6 +9,9 @@ timeRouter.post('/createTime', createTime);
 timeRouter.get('/getTimeByEmployeeID/:employeeID', getTimeByEmployeeID);
 timeRouter.get('/bestemployee', getBestEmployee);
 timeRouter.get('/hoursworked', hoursWorked);
+timeRouter.get('/days', getDaysHours);
+timeRouter.get('/days/:employeeId', getDaysHoursByEmployeeID);
+
 
 
 export default timeRouter;

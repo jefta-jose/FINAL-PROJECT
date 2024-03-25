@@ -1,38 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import ReactApexChart from "react-apexcharts";
 import user from "../../assets/Ellipse 7.png";
 import "./Home.scss";
 import { useGetNumberOfEmployeesQuery } from "../../Features/Employee";
-import { useGetBestEmployeeQuery } from "../../Features/Time";
-import { useGetHoursWorkedQuery } from "../../Features/Time";
-import { useGetTotalEmailsQuery } from "../../Features/Emails";
+import {
+  useGetBestEmployeeQuery,
+  useGetHoursWorkedQuery,
+  useGetHoursForSpecificDayQuery,
+} from "../../Features/Time";
 
 const Home = () => {
-  const normalWorkingHours = 8; // Define the normal working hours
-
-  const actualHours = [28, 13, 18, 9, 10]; // Replace this with your actual hours data
-
-  const overtimeHours = actualHours.map((hours) =>
-    Math.max(hours - normalWorkingHours, 0)
-  );
-
-  const barChartData = {
-    options: {
-      chart: {
-        id: "basic-bar",
-      },
-      xaxis: {
-        categories: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-      },
-    },
-    series: [
-      {
-        name: "Overtime (hours)",
-        data: overtimeHours,
-      },
-    ],
-  };
 
   const pieChartData = {
     series: [300, 50, 100],
@@ -58,14 +36,52 @@ const Home = () => {
     },
   };
 
+  const [barChartData, setBarChartData] = useState({
+    options: {
+      chart: {
+        id: "basic-bar",
+      },
+      xaxis: {
+        categories: [],
+      },
+    },
+    series: [
+      {
+        name: "Hours Worked",
+        data: [],
+      },
+    ],
+  });
+
+  const { data: hoursForSpecificDay } = useGetHoursForSpecificDayQuery();
+
+  useEffect(() => {
+    if (hoursForSpecificDay) {
+      const categories = Object.keys(hoursForSpecificDay.totalHours);
+      const data = categories.map((day) => hoursForSpecificDay.totalHours[day]);
+      
+      setBarChartData({
+        ...barChartData,
+        options: {
+          ...barChartData.options,
+          xaxis: {
+            categories: categories,
+          },
+        },
+        series: [
+          {
+            name: "Hours Worked",
+            data: data,
+          },
+        ],
+      });
+    }
+  }, [hoursForSpecificDay]);
+
   const { data: employees } = useGetNumberOfEmployeesQuery();
   console.log("employees", employees);
-
   const { data: bestEmployee } = useGetBestEmployeeQuery();
-
   const { data: hours } = useGetHoursWorkedQuery();
-
-  const { data: emails } = useGetTotalEmailsQuery();
 
   return (
     <div className="home-container">
@@ -87,13 +103,14 @@ const Home = () => {
           </div>
 
           <div className="graph-view">
-            <ReactApexChart
-              options={barChartData.options}
-              series={barChartData.series}
-              type="bar"
-              height={350}
-            />
-          </div>
+          <ReactApexChart
+            options={barChartData.options}
+            series={barChartData.series}
+            type="bar"
+            height={350}
+          />
+        </div>
+
         </div>
         <div className="right-home-display">
           <div className="top-performer">

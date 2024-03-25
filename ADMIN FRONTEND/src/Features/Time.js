@@ -41,9 +41,15 @@ export const timeApi = createApi({
                 url: '/hoursworked',
                 method: 'GET',
             }),
-        }),        
+        }),
+        getHoursForSpecificDay: builder.query({
+            query: () => ({
+                url: `/days`,
+                method: 'GET',
+            }),
+        }),              
     }),
 });
 
 // Export generated hooks
-export const { useGetHoursWorkedQuery , useGetBestEmployeeQuery , useUpdateTimeMutation, useGetTimeQuery, useCreateTimeMutation, useGetAllTimesQuery } = timeApi;
+export const { useGetHoursForSpecificDayQuery , useGetHoursWorkedQuery , useGetBestEmployeeQuery , useUpdateTimeMutation, useGetTimeQuery, useCreateTimeMutation, useGetAllTimesQuery } = timeApi;

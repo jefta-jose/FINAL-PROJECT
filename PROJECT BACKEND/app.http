@@ -88,6 +88,13 @@ GET http://localhost:3000/api/bestemployee
 GET http://localhost:3000/api/hoursworked
 
 
+### HOURS FOR SPECIFIC DAYS
+GET http://localhost:3000/api/days
+
+### number of hours via employeeid
+GET http://localhost:3000/api/days/fce8e12d-d52b-47c3-809a-8af2ce52409e
+
+
 ##### - payrolls -------------------------------------------------------------------------------------
 ### generate all payrolls
 GET http://localhost:3000/api/payroll
