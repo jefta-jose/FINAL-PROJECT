@@ -4,15 +4,15 @@ Content-Type: application/json
 
   {
     "FirstName": "Emily",
-    "LastName": "Johnson",
+    "LastName": "KAMAU",
     "Address": "123 Pine Street",
     "BirthDate": "1993-04-25T00:00:00.000Z",
     "ContactInfo": "1357924680",
     "Gender": "Female",
     "Position": "UX Designer",
     "imageUrl": "https://example.com/emily.jpg",
-    "Email": "emily.johnson@example.com",
-    "Password": "$2b$05$1Swl7ja6B.8YKp1O1.FRxeXA7IzIavry42uz3Ci.n1WIaVQ3zuacW",
+    "Email": "emily.johns1on@example.com",
+    "Password": "123456",
     "HourlyRate": 55,
     "GrossPay": 275,
     "NHIFDeduction": 18,
@@ -38,13 +38,14 @@ POST http://localhost:3000/api/employee/login
 Content-Type: application/json
 
 {
-    "Email": "ndegwajeff4@gmil.com",
-    "Password": "$2b$05$tICjkDNbXer/S6JIjzV/euqYqmwxqg2LJwq/oSRMgJWf0hmssH.Ti"
+    "Email": "emily.johns1on@example.com",
+    "Password": "$2b$05$5H4yfeR8n38raQUArw6KwelHFK6Psj8YtgXKgUe0g11TbSPKzT1d2"
 }
 
 
 ### get user by id
-GET http://localhost:3000/api/employee/626d3b67-049e-4c35-96b3-3cb45e2f18ba
+GET http://localhost:3000/api/employee/024508ae-7ac9-4b39-890d-aaa4a8d2d4d9
+
 
 ### delete employee
 DELETE  http://localhost:3000/api/employee/1cd7e4fc-4bf8-4d7e-9cbf-5b98f93e50dc

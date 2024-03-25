@@ -10,14 +10,14 @@ export const loginEmployeeService = async (email, password) => {
     try {
         const result = await poolRequest()
             .input('Email', sql.VarChar, email)
-            .input('Password', sql.VarChar, password)
+            .input('Password', sql.VarChar, password) // Use the provided password directly
             .query("SELECT * FROM Employees WHERE Email = @Email AND Password = @Password");
 
         return result.recordset;
     } catch (error) {
         return error;
     }
-}
+};
 
 
 
@@ -46,14 +46,14 @@ export const addEmployeeService = async (employee) => {
         const EmployeeID = uuidv4();
 
         // Hash the password
-        const hashedPassword = await bcrypt.hash(Password, 5); // 10 is the saltRounds
+        const hashedPassword = await bcrypt.hash(Password, 5); // 5 is the saltRounds
 
         const result = await poolRequest()
             .input('EmployeeID', sql.VarChar, EmployeeID)
             .input('FirstName', sql.VarChar, FirstName)
             .input('LastName', sql.VarChar, LastName)
             .input('Email', sql.VarChar, Email)
-            .input('Password', sql.VarChar, hashedPassword)
+            .input('Password', sql.VarChar, hashedPassword) // Store the hashed password
             .input('Address', sql.VarChar, Address)
             .input('BirthDate', sql.Date, BirthDate)
             .input('ContactInfo', sql.VarChar, ContactInfo)
