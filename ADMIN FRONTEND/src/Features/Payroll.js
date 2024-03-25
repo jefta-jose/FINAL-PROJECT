@@ -17,7 +17,7 @@ export const payrollApi = createApi({
             query: () => '/payroll',
         }),
         getPayrollRecordById: builder.query({
-            query: (id) => `/payroll/${id}`,
+            query: (payrollId) => `/payroll/${payrollId}`,
         }),
         deletePayrollRecord: builder.mutation({
             query: (id) => ({

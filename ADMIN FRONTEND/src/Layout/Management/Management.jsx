@@ -18,14 +18,14 @@ const Management = () => {
   const [formData, setFormData] = useState({
     FirstName: "",
     LastName: "",
+    Email: "",
+    Password: "",
     Address: "",
     BirthDate: "",
     ContactInfo: "",
     Gender: "",
     Position: "",
-    PhotoURL: "",
-    Email: "",
-    Password: "",
+    imageUrl: "https://example.com/photo.jpg", 
     HourlyRate: "",
     GrossPay: "",
     NHIFDeduction: "",
@@ -39,14 +39,14 @@ const Management = () => {
     setFormData({
       FirstName: "",
       LastName: "",
+      Email: "",
+      Password: "",
       Address: "",
       BirthDate: "",
       ContactInfo: "",
       Gender: "",
       Position: "",
-      PhotoURL: "",
-      Email: "",
-      Password: "",
+      imageUrl: "https://example.com/photo.jpg", 
       HourlyRate: "",
       GrossPay: "",
       NHIFDeduction: "",
@@ -348,67 +348,6 @@ const Management = () => {
                 </label>
 
                 <label>
-                  Address:
-                  <input
-                    type="text"
-                    name="Address"
-                    value={formData.Address}
-                    onChange={handleInputChange}
-                  />
-                </label>
-
-                <label>
-                  BirthDate:
-                  <input
-                    type="text"
-                    name="BirthDate"
-                    value={formData.BirthDate}
-                    onChange={handleInputChange}
-                  />
-                </label>
-
-                <label>
-                  ContactInfo:
-                  <input
-                    type="text"
-                    name="ContactInfo"
-                    value={formData.ContactInfo}
-                    onChange={handleInputChange}
-                  />
-                </label>
-
-                <label>
-                  Gender:
-                  <input
-                    type="text"
-                    name="Gender"
-                    value={formData.Gender}
-                    onChange={handleInputChange}
-                  />
-                </label>
-
-                <label>
-                  Position:
-                  <input
-                    type="text"
-                    name="Position"
-                    value={formData.Position}
-                    onChange={handleInputChange}
-                  />
-                </label>
-              </div>
-              <div className="right-labels">
-                <label>
-                  PhotoURL:
-                  <input
-                    type="text"
-                    name="PhotoURL"
-                    value={formData.PhotoURL}
-                    onChange={handleInputChange}
-                  />
-                </label>
-
-                <label>
                   Email:
                   <input
                     type="text"
@@ -429,11 +368,74 @@ const Management = () => {
                 </label>
 
                 <label>
-                  GrossPay:
+                  Address:
                   <input
                     type="text"
-                    name="GrossPay"
-                    value={formData.GrossPay}
+                    name="Address"
+                    value={formData.Address}
+                    onChange={handleInputChange}
+                  />
+                </label>
+
+                <label>
+                  Gender:
+                  <input
+                    type="text"
+                    name="Gender"
+                    value={formData.Gender}
+                    onChange={handleInputChange}
+                  />
+                </label>
+
+                <label>
+                  BirthDate:
+                  <input
+                  className="date"
+                    type="date"
+                    name="BirthDate"
+                    value={formData.BirthDate}
+                    onChange={handleInputChange}
+                    max="2006-01-01" // Set the minimum date to January 1, 2006
+                  />
+                </label>
+
+                <label>
+                  ContactInfo:
+                  <input
+                    type="text"
+                    name="ContactInfo"
+                    value={formData.ContactInfo}
+                    onChange={handleInputChange}
+                  />
+                </label>
+              </div>
+              <div className="right-labels">
+                <label>
+                  Gender:
+                  <input
+                    type="text"
+                    name="Gender"
+                    value={formData.Gender}
+                    onChange={handleInputChange}
+                  />
+                </label>
+
+                <label>
+                  Position:
+                  <input
+                    type="text"
+                    name="Position"
+                    value={formData.Position}
+                    onChange={handleInputChange}
+                  />
+                </label>
+
+                <label>
+                  imageUrl:
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    value={formData.imageUrl}
                     onChange={handleInputChange}
                   />
                 </label>
@@ -444,6 +446,16 @@ const Management = () => {
                     type="text"
                     name="HourlyRate"
                     value={formData.HourlyRate}
+                    onChange={handleInputChange}
+                  />
+                </label>
+
+                <label>
+                  GrossPay:
+                  <input
+                    type="text"
+                    name="GrossPay"
+                    value={formData.GrossPay}
                     onChange={handleInputChange}
                   />
                 </label>

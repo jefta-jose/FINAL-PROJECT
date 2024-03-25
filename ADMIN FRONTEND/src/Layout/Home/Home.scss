@@ -14,11 +14,25 @@
 
       .employees {
         display: flex;
-        flex-direction: column;
         background-color: #fd8095;
         border-radius: 5px;
         color: white;
         padding: 5px;
+        align-items: center;
+        gap: 1rem;
+
+        p{
+          font-weight: 900;
+          font-size: 20px;
+          border: 2px solid rgba(0, 0, 0, 0.414);
+          width: 3rem;
+          height: 3rem;
+          display: grid;
+          place-items: center;
+          border-radius: 3px;
+          background-color: #ffce56;
+          color: #210440;
+        }
       }
     }
   }

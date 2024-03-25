@@ -25,7 +25,7 @@ export const employeeApi = createApi({
         getAllEmployees: builder.query({
             query: () => '',
             providesTags: ['employee'],
-        }), 
+        }),
         fireEmployee: builder.mutation({
             query: (employeeId) => ({
                 url: `/${employeeId}`,
@@ -40,7 +40,12 @@ export const employeeApi = createApi({
                 body: employee
             }),
             invalidatesTags: ['employee'],
-        }),            
+        }),
+        getNumberOfEmployees: builder.query({
+            query: () => '',
+            transformResponse: (response) => response.length, 
+            providesTags: ['employee'],
+        }),
     }),
 });
 
@@ -49,5 +54,6 @@ export const {
     useLoginMutation, 
     useGetAllEmployeesQuery, 
     useFireEmployeeMutation,
-    useUpdateEmployeeMutation  // New addition
+    useUpdateEmployeeMutation,
+    useGetNumberOfEmployeesQuery
 } = employeeApi;

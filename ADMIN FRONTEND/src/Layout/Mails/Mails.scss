@@ -5,6 +5,51 @@
   padding: 1rem;
   justify-content: space-evenly;
 
+
+  .create-emails {
+    justify-content: center;
+
+    
+
+    img{
+      width: 4rem;
+      background-color: #00b392;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        animation: shake 0.1s infinite alternate;
+      }
+    }
+
+    .useless-icons{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      img{
+        cursor: pointer;
+        width: 2rem;
+        background-color: #e4e4e4;
+
+        &:hover {
+          animation: shake 0.2s infinite alternate;
+        }
+        
+        @keyframes shake {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(5px);
+          }
+        }
+      }
+    }
+  }
+
   .display-inbox {
     width: 90%;
     background-color: #210440;
@@ -101,4 +146,68 @@
 .selected-email button:active {
   background-color: #0056b3;
   transform: translateY(1px);
+}
+
+
+/* Modal overlay */
+.ReactModal__Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal content */
+.ReactModal__Content {
+  position: absolute;
+  padding: 20px;
+  border-radius: 5px;
+  width: 500px;
+}
+
+/* Form styling */
+form {
+  margin-top: 20px;
+  padding-right: 1rem;
+
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button[type="submit"],
+button.close-modal {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #1a73e8;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+}
+
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.subject{
+  height: 6rem;
+  margin-bottom: 3rem;
 }

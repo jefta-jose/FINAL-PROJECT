@@ -3,10 +3,10 @@ import Navbar from "../../Components/Navbar";
 import ReactApexChart from "react-apexcharts";
 import user from "../../assets/Ellipse 7.png";
 import "./Home.scss";
+import { useGetNumberOfEmployeesQuery } from "../../Features/Employee";
+import { useGetTimeQuery } from "../../Features/Time";
 
 const Home = () => {
-  const [progressPercentage] = useState(80);
-
   const normalWorkingHours = 8; // Define the normal working hours
 
   const actualHours = [28, 13, 18, 9, 10]; // Replace this with your actual hours data
@@ -56,6 +56,9 @@ const Home = () => {
     },
   };
 
+  const { data: employees } = useGetNumberOfEmployeesQuery();
+  console.log("employees", employees);
+
   return (
     <div className="home-container">
       <div className="navbar">
@@ -65,30 +68,8 @@ const Home = () => {
         <div className="left-home-display">
           <div className="status-view">
             <div className="employees">
-              <h2>Employees</h2>
-              <p>100</p>
-              <div className="percent">
-                <progress value={progressPercentage} max="100"></progress>
-                80%
-              </div>
-            </div>
-
-            <div className="employees">
-              <h2>Hours</h2>
-              <p>100</p>
-              <div className="percent">
-                <progress value={progressPercentage} max="100"></progress>
-                80%
-              </div>
-            </div>
-
-            <div className="employees">
-              <h2>Payments</h2>
-              <p>100</p>
-              <div className="percent">
-                <progress value={progressPercentage} max="100"></progress>
-                80%
-              </div>
+              <h3>Number Of Employees:</h3>
+              <p>{employees}</p>
             </div>
           </div>
 
@@ -113,7 +94,7 @@ const Home = () => {
             <h2>New Employees</h2>
             <div className="numbers">
               <p>50</p>
-              <p className="green" >+4.5%</p>
+              <p className="green">+4.5%</p>
             </div>
           </div>
 
@@ -128,9 +109,9 @@ const Home = () => {
               />
             </div>
             <div className="activity-text">
-              <button className="completed" >Completed</button>
-              <button className="in-progress" >In Progress</button>
-              <button className="overdue" >Overdue</button>
+              <button className="completed">Completed</button>
+              <button className="in-progress">In Progress</button>
+              <button className="overdue">Overdue</button>
             </div>
           </div>
         </div>
