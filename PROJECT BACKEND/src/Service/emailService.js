@@ -1,6 +1,31 @@
 import { poolRequest, sql } from '../Utils/dbConnect.js';
 import { v4 as uuidv4 } from 'uuid';
 
+export const getEmailService = async () => {
+    try {
+        const result = await poolRequest().query(`SELECT * FROM Email`);
+        return result.recordset;
+    } catch (error) {
+        console.error("Error occurred while fetching emails:", error); // Log the error for debugging purposes
+        throw error; // Rethrow the error to be caught by the caller
+    }
+};
+
+export const numberOfEmailsService = async () => {
+    try {
+        const result = await poolRequest().query(`
+            SELECT COUNT(*) AS totalEmails
+            FROM Email
+        `);
+
+        const totalEmails = result.recordset[0].totalEmails;
+        return totalEmails;
+    } catch (error) {
+        return error;
+    }
+};
+
+
 export const createEmailService = async (EmployeeID, EmailSubject, EmailContent, Emailbody) => {
     try {
         const EmailID = uuidv4();

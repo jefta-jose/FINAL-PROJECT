@@ -4,7 +4,9 @@ import ReactApexChart from "react-apexcharts";
 import user from "../../assets/Ellipse 7.png";
 import "./Home.scss";
 import { useGetNumberOfEmployeesQuery } from "../../Features/Employee";
-import { useGetTimeQuery } from "../../Features/Time";
+import { useGetBestEmployeeQuery } from "../../Features/Time";
+import { useGetHoursWorkedQuery } from "../../Features/Time";
+import { useGetTotalEmailsQuery } from "../../Features/Emails";
 
 const Home = () => {
   const normalWorkingHours = 8; // Define the normal working hours
@@ -59,6 +61,12 @@ const Home = () => {
   const { data: employees } = useGetNumberOfEmployeesQuery();
   console.log("employees", employees);
 
+  const { data: bestEmployee } = useGetBestEmployeeQuery();
+
+  const { data: hours } = useGetHoursWorkedQuery();
+
+  const { data: emails } = useGetTotalEmailsQuery();
+
   return (
     <div className="home-container">
       <div className="navbar">
@@ -70,6 +78,11 @@ const Home = () => {
             <div className="employees">
               <h3>Number Of Employees:</h3>
               <p>{employees}</p>
+            </div>
+
+            <div className="time">
+              <h3>Hours Worked</h3>
+              <p>{hours}</p>
             </div>
           </div>
 
@@ -84,20 +97,18 @@ const Home = () => {
         </div>
         <div className="right-home-display">
           <div className="top-performer">
-            <h2>Top Performer</h2>
-            <div className="image">
-              <img src={user} alt="" />
-              <p>sk@gmail.com</p>
-            </div>
+            <h3 className="section-title">Best Employee</h3>
+            {bestEmployee &&
+              bestEmployee.map((employee) => (
+                <div className="employee-details" key={employee.id}>
+                  <p className="name">
+                    {employee.FirstName} {employee.LastName}
+                  </p>
+                  <p className="email">{employee.Email}</p>
+                  <p> Hours Worked {employee.HoursWorked}</p>
+                </div>
+              ))}
           </div>
-          <div className="new-employees">
-            <h2>New Employees</h2>
-            <div className="numbers">
-              <p>50</p>
-              <p className="green">+4.5%</p>
-            </div>
-          </div>
-
           <div className="activities">
             <h2>Activities</h2>
             <div className="chart">

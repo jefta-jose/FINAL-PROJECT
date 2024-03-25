@@ -81,6 +81,11 @@ Content-Type: application/json
     "Rate": 110
 }
 
+### get the best employee
+GET http://localhost:3000/api/bestemployee
+
+### NUMBER OF HOURS
+GET http://localhost:3000/api/hoursworked
 
 
 ##### - payrolls -------------------------------------------------------------------------------------
@@ -150,3 +155,9 @@ Content-Type: application/json
 
 ### GET EMAILS
 GET http://localhost:3000/api/email/fce8e12d-d52b-47c3-809a-8af2ce52409e
+
+### GET ALL MAILS
+GET http://localhost:3000/api/email
+
+### NUMBER OF ACTIVITIES
+GET http://localhost:3000/api/emails

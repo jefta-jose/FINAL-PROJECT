@@ -12,17 +12,24 @@ export const emailApi = createApi({
                 method: 'POST',
                 body: { EmployeeID, EmailSubject, EmailContent, Emailbody },
             }),
-            invalidatesTags: ['email'], // Invalidate the 'email' tag after creating an email
+            invalidatesTags: ['email'],
         }),
         getEmail: builder.query({
-            query: () => '/emails',
-            providesTags: ['email'], // Provide the 'email' tag when fetching emails
+            query: () => '/email',
+            providesTags: ['email'],
         }),
         getEmailById: builder.query({
             query: (emailId) => `/email/${emailId}`,
-            providesTags: ['email'], // Provide the 'email' tag when fetching a specific email
-        })
+            providesTags: ['email'],
+        }),
+        getTotalEmails: builder.query({
+            query: () => ({
+                url: 'emails',
+                method: 'GET',
+            }),
+            invalidatesTags: ['email'],
+        }),
     }),
 });
 
-export const { useCreateEmailMutation, useGetEmailQuery, useGetEmailByIdQuery } = emailApi;
+export const { useGetTotalEmailsQuery, useCreateEmailMutation, useGetEmailQuery, useGetEmailByIdQuery } = emailApi;

@@ -1,6 +1,42 @@
 import { poolRequest, sql } from '../Utils/dbConnect.js';
 import { v4 as uuidv4 } from 'uuid';
 
+export const getHoursService = async () => {
+    try {
+        // Query the database to get individual hours worked by each employee
+        const result = await poolRequest().query(`
+            SELECT SUM(HoursWorked) AS totalHours
+            FROM Attendance
+        `);
+
+        const totalHoursWorked = result.recordset[0].totalHours;
+        return totalHoursWorked;
+    } catch (error) {
+        console.error("Error fetching total hours worked:", error);
+        throw error;
+    }
+};
+
+
+
+export const getBestEmployeeService = async () => {
+    try {
+        const query = `
+            SELECT TOP 1 E.FirstName, E.LastName, E.Email, HoursWorked
+            FROM Attendance TR
+            JOIN Employees E ON TR.EmployeeID = E.EmployeeID
+            ORDER BY TR.HoursWorked DESC
+        `;
+        const result = await poolRequest().query(query);
+
+        return result.recordset;
+    } catch (error) {
+        console.error("Database Error:", error);
+        throw error;
+    }
+}
+
+
 export const getTimeService = async () => {
     try {
         const query = `

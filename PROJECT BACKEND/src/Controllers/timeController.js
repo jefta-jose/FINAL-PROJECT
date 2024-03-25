@@ -1,4 +1,4 @@
-import { getTimeByEmployeeIDService , updateTimeService, getTimeService, createTimeService } from '../Service/timeService.js';
+import {getHoursService, getBestEmployeeService, getTimeByEmployeeIDService , updateTimeService, getTimeService, createTimeService } from '../Service/timeService.js';
 
 export const updateTime = async (req, res) => {
     const timeDetails = {
@@ -16,7 +16,20 @@ export const updateTime = async (req, res) => {
     }
 };
 
+export const getBestEmployee = async (req, res) => {
+    try {
+        const time = await getBestEmployeeService();
+        if (!time) {
+            return res.status(404).json({ message: 'Time not found for the specified employee ID' });
+        }
+        res.status(200).json(time);
+    } catch (error) {
+        console.error("Error getting time by employee ID:", error);
+        res.status(500).json({ error: error.message });
+    }
+};
 
+//
 export const getTimeByEmployeeID = async (req, res) => {
     const { employeeID } = req.params;
 
@@ -55,6 +68,21 @@ export const createTime = async (req, res) => {
 export const getTime = async (req, res) => {
     try {
         const time = await getTimeService();
+        if(time.length === 0){
+            res.status(404).json({ message: 'Time not found' });
+        } else {
+            res.status(200).json(time);
+        }
+    } catch (error) {
+        return error;
+    }
+}
+
+
+// Controller for getting time records
+export const hoursWorked = async (req, res) => {
+    try {
+        const time = await getHoursService();
         if(time.length === 0){
             res.status(404).json({ message: 'Time not found' });
         } else {

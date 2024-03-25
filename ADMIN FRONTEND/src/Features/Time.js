@@ -27,11 +27,23 @@ export const timeApi = createApi({
             invalidatesTags: ['Time'],
         }),
         getAllTimes: builder.query({
-            query: () => '/getTime', // Define the query endpoint to get all times
-            providesTags: ['Time'], // Provide 'Time' tag after fetching all times
+            query: () => '/getTime',
+            providesTags: ['Time'],
         }),
+        getBestEmployee: builder.query({
+            query: () => ({
+                url: '/bestemployee',
+                method: 'GET',
+            })
+        }),
+        getHoursWorked: builder.query({
+            query: () => ({
+                url: '/hoursworked',
+                method: 'GET',
+            }),
+        }),        
     }),
 });
 
 // Export generated hooks
-export const {  useUpdateTimeMutation, useGetTimeQuery, useCreateTimeMutation, useGetAllTimesQuery } = timeApi;
+export const { useGetHoursWorkedQuery , useGetBestEmployeeQuery , useUpdateTimeMutation, useGetTimeQuery, useCreateTimeMutation, useGetAllTimesQuery } = timeApi;
