@@ -74,7 +74,8 @@ const SideNav = () => {
           </div>
 
           <div className="settings-container">
-            <img src={settings} alt="" />
+            {/* <p>settings</p>
+            <img src={settings} alt="" /> */}
           </div>
         </div>
       </div>
