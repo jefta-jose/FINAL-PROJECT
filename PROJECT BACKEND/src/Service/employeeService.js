@@ -6,18 +6,32 @@ import { v4 as uuidv4 } from 'uuid';
 
 
 
+
 export const loginEmployeeService = async (email, password) => {
     try {
         const result = await poolRequest()
             .input('Email', sql.VarChar, email)
-            .input('Password', sql.VarChar, password) // Use the provided password directly
+            .input('Password', sql.VarChar, password)
             .query("SELECT * FROM Employees WHERE Email = @Email AND Password = @Password");
 
-        return result.recordset;
+        // Check if an employee with the provided email and password exists
+        if (!result || result.recordset.length === 0) {
+            return { token: null }; // Return null indicating login failure
+        }
+
+        // If login is successful, generate a JWT token
+        const { EmployeeID, /* Other user properties */ } = result.recordset[0];
+        const token = jwt.sign({ EmployeeID /* Other user properties */ }, process.env.JWT_SECRET, {
+            expiresIn: '72h' // Token expiration time, e.g., 1 hour
+        });
+
+        return { token }; // Return the generated JWT token as an object
     } catch (error) {
-        return error;
+        throw error; // Throw the error for handling at a higher level
     }
-};
+}
+
+
 
 
 
@@ -46,14 +60,14 @@ export const addEmployeeService = async (employee) => {
         const EmployeeID = uuidv4();
 
         // Hash the password
-        const hashedPassword = await bcrypt.hash(Password, 5); // 5 is the saltRounds
+        const hashedPassword = await bcrypt.hash(Password, 5); // 10 is the saltRounds
 
         const result = await poolRequest()
             .input('EmployeeID', sql.VarChar, EmployeeID)
             .input('FirstName', sql.VarChar, FirstName)
             .input('LastName', sql.VarChar, LastName)
             .input('Email', sql.VarChar, Email)
-            .input('Password', sql.VarChar, hashedPassword) // Store the hashed password
+            .input('Password', sql.VarChar, hashedPassword)
             .input('Address', sql.VarChar, Address)
             .input('BirthDate', sql.Date, BirthDate)
             .input('ContactInfo', sql.VarChar, ContactInfo)

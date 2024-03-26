@@ -75,17 +75,24 @@ const Management = () => {
     }
   };
   const handleFireEmployee = async (employeeId) => {
-    // Modify the function to accept employeeId
     try {
-      await fireEmployeeMutation(employeeId); // Pass the employeeId directly
+      // Retrieve the token from local storage
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error("Token not found in local storage");
+        return;
+      }
+  
+      // Pass the employeeId and token separately to the fireEmployeeMutation
+      await fireEmployeeMutation(employeeId, token);
       console.log(`Employee with ID ${employeeId} fired successfully`);
     } catch (error) {
       console.error("Failed to fire employee:", error);
     }
   };
-  ////////////////////////////////////////////////////////////////////////////
+  
+///////////////////////////////////////////////////////////////////////////
 
-  ///////////////////////////////////////////////////////////////////////////
   const [addScheduleMutation] = useCreateScheduleMutation();
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [updateFormData, setUpdateFormData] = useState({

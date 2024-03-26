@@ -25,18 +25,28 @@ const Login = () => {
         console.error("Error fetching employee data");
         return;
       }
-
+  
       const user = allEmployeesData.find(
         (employee) => employee.Email === formData.Email
       );
-
+  
       if (user && user.Role === "ADMIN") {
         const response = await loginUser(formData);
-        console.log("Admin logged in successfully:", response.data);
-        SuccessToast("Admin logged in successfully");
-        
-        navigate("/dashboard");
-
+  
+        // Check if token is received in the response
+        if (response.data && response.data.token) {
+          const token = response.data.token;
+  
+          // Store the token in local storage
+          localStorage.setItem("token", token);
+  
+          console.log("Admin logged in successfully:", response.data);
+          SuccessToast("Admin logged in successfully");
+          navigate("/dashboard");
+        } else {
+          console.log("No token received in the response");
+          ErrorToast("Login failed. Please try again.");
+        }
       } else {
         console.log("Access denied. Only admins can log in.");
         ErrorToast("Access denied. Only admins can log in.");

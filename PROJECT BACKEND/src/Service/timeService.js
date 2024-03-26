@@ -1,66 +1,6 @@
 import { poolRequest, sql } from '../Utils/dbConnect.js';
 import { v4 as uuidv4 } from 'uuid';
 
-export const getHoursForEachDayServiceByEmployeeID = async (employeeId) => {
-    try {
-        const result = await poolRequest().query(`
-            SELECT 
-                SUM(CASE WHEN DATEPART(dw, Date) = 1 THEN HoursWorked ELSE 0 END) AS Sunday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 2 THEN HoursWorked ELSE 0 END) AS Monday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 3 THEN HoursWorked ELSE 0 END) AS Tuesday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 4 THEN HoursWorked ELSE 0 END) AS Wednesday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 5 THEN HoursWorked ELSE 0 END) AS Thursday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 6 THEN HoursWorked ELSE 0 END) AS Friday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 7 THEN HoursWorked ELSE 0 END) AS Saturday
-            FROM Attendance
-            WHERE EmployeeID = '${employeeId}';
-        `);
-
-        const totalHoursWorked = {
-            Sunday: result.recordset[0].Sunday,
-            Monday: result.recordset[0].Monday,
-            Tuesday: result.recordset[0].Tuesday,
-            Wednesday: result.recordset[0].Wednesday,
-            Thursday: result.recordset[0].Thursday,
-            Friday: result.recordset[0].Friday,
-            Saturday: result.recordset[0].Saturday
-        };
-        return totalHoursWorked;
-    } catch (error) {
-        throw error;
-    }
-};
-
-// Service function to fetch hours worked for all days of the week
-export const getHoursForEachDayService = async () => {
-    try {
-        const result = await poolRequest().query(`
-            SELECT 
-                SUM(CASE WHEN DATEPART(dw, Date) = 1 THEN HoursWorked ELSE 0 END) AS Sunday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 2 THEN HoursWorked ELSE 0 END) AS Monday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 3 THEN HoursWorked ELSE 0 END) AS Tuesday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 4 THEN HoursWorked ELSE 0 END) AS Wednesday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 5 THEN HoursWorked ELSE 0 END) AS Thursday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 6 THEN HoursWorked ELSE 0 END) AS Friday,
-                SUM(CASE WHEN DATEPART(dw, Date) = 7 THEN HoursWorked ELSE 0 END) AS Saturday
-            FROM Attendance;
-        `);
-
-        const totalHoursWorked = {
-            Sunday: result.recordset[0].Sunday,
-            Monday: result.recordset[0].Monday,
-            Tuesday: result.recordset[0].Tuesday,
-            Wednesday: result.recordset[0].Wednesday,
-            Thursday: result.recordset[0].Thursday,
-            Friday: result.recordset[0].Friday,
-            Saturday: result.recordset[0].Saturday
-        };
-        return totalHoursWorked;
-    } catch (error) {
-        throw error;
-    }
-};
-
 export const getHoursService = async () => {
     try {
         // Query the database to get individual hours worked by each employee

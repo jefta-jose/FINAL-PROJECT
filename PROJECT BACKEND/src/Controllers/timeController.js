@@ -1,23 +1,4 @@
-import { getHoursForEachDayServiceByEmployeeID, getHoursForEachDayService, getHoursService, getBestEmployeeService, getTimeByEmployeeIDService , updateTimeService, getTimeService, createTimeService } from '../Service/timeService.js';
-
-export const getDaysHoursByEmployeeID = async (req, res) => {
-    try {
-        const { employeeId } = req.params;
-        const time = await getHoursForEachDayServiceByEmployeeID(employeeId);
-        res.json({ totalHours: time });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-// Controller function to handle the request
-export const getDaysHours = async (req, res) => {
-    try {
-        const time = await getHoursForEachDayService();
-        res.json({ totalHours: time });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+import {getHoursService, getBestEmployeeService, getTimeByEmployeeIDService , updateTimeService, getTimeService, createTimeService } from '../Service/timeService.js';
 
 export const updateTime = async (req, res) => {
     const timeDetails = {

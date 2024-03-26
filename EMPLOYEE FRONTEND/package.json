@@ -1,5 +1,4 @@
 {
-  "name": "employee-frontend",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,7 +13,6 @@
     "@reduxjs/toolkit": "^2.2.1",
     "apexcharts": "^3.47.0",
     "builder": "^5.0.0",
-    "employee-frontend": "link:",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",

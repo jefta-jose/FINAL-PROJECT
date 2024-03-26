@@ -3,16 +3,16 @@ POST http://localhost:3000/api/employee/register
 Content-Type: application/json
 
   {
-    "FirstName": "Emily",
-    "LastName": "KAMAU",
+    "FirstName": "Maryann",
+    "LastName": "Johnson",
     "Address": "123 Pine Street",
     "BirthDate": "1993-04-25T00:00:00.000Z",
     "ContactInfo": "1357924680",
     "Gender": "Female",
     "Position": "UX Designer",
     "imageUrl": "https://example.com/emily.jpg",
-    "Email": "emily.johns1on@example.com",
-    "Password": "123456",
+    "Email": "emily1234.johnson@example.com",
+    "Password": "$2b$05$1Swl7ja6B.8YKp1O1.FRxeXA7IzIavry42uz3Ci.n1WIaVQ3zuacW",
     "HourlyRate": 55,
     "GrossPay": 275,
     "NHIFDeduction": 18,
@@ -44,11 +44,11 @@ Content-Type: application/json
 
 
 ### get user by id
-GET http://localhost:3000/api/employee/024508ae-7ac9-4b39-890d-aaa4a8d2d4d9
-
+GET http://localhost:3000/api/employee/626d3b67-049e-4c35-96b3-3cb45e2f18ba
 
 ### delete employee
-DELETE  http://localhost:3000/api/employee/1cd7e4fc-4bf8-4d7e-9cbf-5b98f93e50dc
+DELETE  http://localhost:3000/api/employee/024508ae-7ac9-4b39-890d-aaa4a8d2d4d9
+Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbXBsb3llZUlEIjoiMjZiNTYxZmItNjU4Mi00MjZmLWI3YmQtMmJlZmU3ZGU0ODc1IiwiaWF0IjoxNzExNDM0MzY0LCJleHAiOjE3MTE2OTM1NjR9.uY36EWQ1-HxCFfDmGMErfPtCFpt11Ii4HBLz8LScgiA
 
 ##########################################################################################################
 ### - TIME
@@ -87,13 +87,6 @@ GET http://localhost:3000/api/bestemployee
 
 ### NUMBER OF HOURS
 GET http://localhost:3000/api/hoursworked
-
-
-### HOURS FOR SPECIFIC DAYS
-GET http://localhost:3000/api/days
-
-### number of hours via employeeid
-GET http://localhost:3000/api/days/fce8e12d-d52b-47c3-809a-8af2ce52409e
 
 
 ##### - payrolls -------------------------------------------------------------------------------------
