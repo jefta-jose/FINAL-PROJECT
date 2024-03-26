@@ -11,7 +11,7 @@ Content-Type: application/json
     "Gender": "Female",
     "Position": "UX Designer",
     "imageUrl": "https://example.com/emily.jpg",
-    "Email": "emily1234.johnson@example.com",
+    "Email": "katendegwa37@gmail.com",
     "Password": "$2b$05$1Swl7ja6B.8YKp1O1.FRxeXA7IzIavry42uz3Ci.n1WIaVQ3zuacW",
     "HourlyRate": 55,
     "GrossPay": 275,
@@ -47,7 +47,7 @@ Content-Type: application/json
 GET http://localhost:3000/api/employee/626d3b67-049e-4c35-96b3-3cb45e2f18ba
 
 ### delete employee
-DELETE  http://localhost:3000/api/employee/024508ae-7ac9-4b39-890d-aaa4a8d2d4d9
+DELETE  http://localhost:3000/api/employee/f3b63121-24c9-43eb-a858-5598c452bcc4
 Authorization: JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbXBsb3llZUlEIjoiMjZiNTYxZmItNjU4Mi00MjZmLWI3YmQtMmJlZmU3ZGU0ODc1IiwiaWF0IjoxNzExNDM0MzY0LCJleHAiOjE3MTE2OTM1NjR9.uY36EWQ1-HxCFfDmGMErfPtCFpt11Ii4HBLz8LScgiA
 
 ##########################################################################################################

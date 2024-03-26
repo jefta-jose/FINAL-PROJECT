@@ -2,6 +2,33 @@ import { employeeLoginValidator, employeeValidator } from '../Validator/employee
 import { hashPassword, sendServerError, sendCreated, sendDeleteSuccess, sendNotFound } from '../Helper/helper.js';
 import { response } from 'express';
 import { updateEmployeeService , loginEmployeeService, addEmployeeService, getAllEmployeesService, getEmployeeByIdService, fireEmployeeService } from '../Service/employeeService.js';
+import emailTemp from '../Emails/Email.js';
+import nodemailer from 'nodemailer';
+
+
+const sendRegistrationEmail = async (userEmail) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL,
+            pass: process.env.PASSWORD
+        }
+    });
+
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: userEmail,
+        subject: 'Welcom to Project X',
+        html: emailTemp
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully');
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+};
 
 
 export const createEmployee = async (req, res) => {
@@ -19,6 +46,8 @@ export const createEmployee = async (req, res) => {
         if (response instanceof Error) {
             return sendServerError(res, response.message);
         } else {
+            // Employee created successfully, send registration email
+            await sendRegistrationEmail(employeeData.Email); // Assuming email is stored in 'email' field
             return sendCreated(res, 'Employee created successfully');
         }
     } catch (error) {
